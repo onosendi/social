@@ -1,0 +1,23 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+  <style>
+    #app {
+      display: flex;
+      min-height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app"{% if user_data %} data-user="{{ user_data }}"{% endif %}></div>
+<script src="{% static 'frontend/dist/main.js' %}"></script>
+
+</body>
+</html>

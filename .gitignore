@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[co]
+
+# npm
+node_modules/
+dist/
+.cache/
+*.map
+
+# Django
+/static/
+media/
+vendors/
+.env
+
+# coverage
+.coverage
+htmlcov/
