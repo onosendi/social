@@ -9,6 +9,7 @@ import AuthLayout from '../../components/AuthLayout';
 import Heading from '../../components/Heading';
 import MobileMenu from '../../components/MobileMenu';
 import NextButton from '../../components/NextButton';
+import NoData from '../../components/NoData';
 import PageTitle from '../../components/PageTitle';
 import SearchInput from '../../components/SearchInput';
 import UserList from '../../components/UserList';
@@ -40,9 +41,21 @@ const Search = () => {
       rendered = <UserList list={search.results} />;
     } else if (!loading) {
       rendered = (
-        <Typography>
-          No results found.
-        </Typography>
+        <NoData>
+          <Typography
+            paragraph
+            variant="h6"
+          >
+            No results found for &quot;{searchString}&quot;
+          </Typography>
+          <Typography
+            color="textSecondary"
+            paragraphy
+            variant="body2"
+          >
+            The term you entered did not bring up any results.
+          </Typography>
+        </NoData>
       );
     }
     return rendered;
