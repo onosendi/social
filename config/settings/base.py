@@ -125,10 +125,7 @@ STATIC_ROOT = f'{BASE_DIR}/static/'
 STATIC_URL = '/static/'
 
 # This is where to look elsewhere for static files.
-STATICFILES_DIRS = [
-    f'{BASE_DIR}/frontend/static/frontend/dist/',
-    f'{BASE_DIR}/frontend/static/frontend/img/',
-]
+STATICFILES_DIRS = []
 
 
 # Media files (everything user uploaded)
