@@ -153,7 +153,7 @@ export const follow = (slug, userId) => async (dispatch) => {
   }
 };
 
-export const loginUser = (payload, history = null) => async (dispatch) => {
+export const loginUser = (payload) => async (dispatch) => {
   const thisKey = key.login;
   try {
     dispatch(setLoading(NAMESPACE, thisKey));
@@ -162,9 +162,6 @@ export const loginUser = (payload, history = null) => async (dispatch) => {
   } catch (error) {
     if (error.response) {
       dispatch(setErrors(NAMESPACE, thisKey, error.response.data));
-      if (history) {
-        history.push(route.login);
-      }
     }
     console.error(error);
   } finally {

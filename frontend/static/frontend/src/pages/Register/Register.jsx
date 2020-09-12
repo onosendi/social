@@ -161,7 +161,8 @@ const Register = () => {
         <Typography className={classes.login}>
           Already a member?
           {' '}
-          <TextLink to={route.login}>Login</TextLink>.
+          <TextLink to={route.login}>Login</TextLink>
+          .
         </Typography>
       </Container>
     </>

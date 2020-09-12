@@ -21,7 +21,8 @@ const AuthRoute = ({
           // eslint-disable-next-line react/jsx-props-no-spreading
           : <Component {...props} />
       )}
-      {...rest} // eslint-disable-line react/jsx-props-no-spreading
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...rest}
     />
   );
 };

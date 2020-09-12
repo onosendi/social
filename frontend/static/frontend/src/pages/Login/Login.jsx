@@ -135,7 +135,8 @@ const Login = () => {
         <Typography className={classes.register}>
           Not a member?
           {' '}
-          <TextLink to={route.register}>Register</TextLink>.
+          <TextLink to={route.register}>Register</TextLink>
+          .
         </Typography>
       </Container>
     </>
