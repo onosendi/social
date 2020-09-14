@@ -7,11 +7,11 @@ from django.contrib.postgres.fields.citext import (
 from django.utils.text import slugify
 from django.utils.timezone import now
 
-from core.models import TimestampMixin
+from core.models import SoftDeleteMixin, TimestampMixin
 from .managers import UserManager
 
 
-class User(TimestampMixin, AbstractBaseUser):
+class User(SoftDeleteMixin, TimestampMixin, AbstractBaseUser):
     email = CIEmailField(max_length=255, unique=True)
     following = models.ManyToManyField(
         'self',
