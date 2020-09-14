@@ -4,25 +4,27 @@ import { Route, Switch } from 'react-router-dom';
 // Local
 import { route } from '../../constants';
 
-import AnonymousRoute from '../../components/AnonymousRoute';
-import AuthRoute from '../../components/AuthRoute';
+import AnonymousRoute from '../AnonymousRoute';
+import AuthRoute from '../AuthRoute';
 
-import Followers from '../../pages/Followers';
-import Following from '../../pages/Following';
-import Home from '../../pages/Home';
-import Index from '../../pages/Index';
-import Login from '../../pages/Login';
-import Notifications from '../../pages/Notifications';
-import PageNotFound from '../../pages/PageNotFound';
-import PostDetail from '../../pages/PostDetail';
-import PostLikes from '../../pages/PostLikes';
-import ProfilePosts from '../../pages/ProfilePosts';
-import ProfileLikes from '../../pages/ProfileLikes';
-import RecommendedPosts from '../../pages/RecommendedPosts';
-import RecommendedUsers from '../../pages/RecommendedUsers';
-import Register from '../../pages/Register';
-import Search from '../../pages/Search';
-import Settings from '../../pages/Settings';
+const Followers = React.lazy(() => import('../../pages/Followers'));
+const Following = React.lazy(() => import('../../pages/Following'));
+const Home = React.lazy(() => import('../../pages/Home'));
+const Index = React.lazy(() => import('../../pages/Index'));
+const Login = React.lazy(() => import('../../pages/Login'));
+const Notifications = React.lazy(() => import('../../pages/Notifications'));
+const PageNotFound = React.lazy(() => import('../../pages/PageNotFound'));
+const PostDetail = React.lazy(() => import('../../pages/PostDetail'));
+const PostLikes = React.lazy(() => import('../../pages/PostLikes'));
+const ProfilePosts = React.lazy(() => import('../../pages/ProfilePosts'));
+const ProfileLikes = React.lazy(() => import('../../pages/ProfileLikes'));
+const RecommendedPosts = React.lazy(() => (
+  import('../../pages/RecommendedPosts')));
+const RecommendedUsers = React.lazy(() => (
+  import('../../pages/RecommendedUsers')));
+const Register = React.lazy(() => import('../../pages/Register'));
+const Search = React.lazy(() => import('../../pages/Search'));
+const Settings = React.lazy(() => import('../../pages/Settings'));
 
 const Routes = () => (
   <Switch>

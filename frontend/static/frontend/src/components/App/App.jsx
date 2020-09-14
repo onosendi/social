@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useSelector } from 'react-redux';
 
 // Local
+import Loading from '../../components/Loading';
 import Routes from '../../components/Routes';
 import Toast from '../../components/Toast';
 
@@ -32,7 +33,9 @@ const App = () => {
           />
         )}
 
-      <Routes />
+      <Suspense fallback={<Loading />}>
+        <Routes />
+      </Suspense>
     </>
   );
 };
