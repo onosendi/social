@@ -153,7 +153,7 @@ export const follow = (slug, userId) => async (dispatch) => {
   }
 };
 
-export const loginUser = (payload) => async (dispatch) => {
+export const loginUser = (payload, history) => async (dispatch) => {
   const thisKey = key.login;
   try {
     dispatch(setLoading(NAMESPACE, thisKey));
@@ -162,6 +162,11 @@ export const loginUser = (payload) => async (dispatch) => {
   } catch (error) {
     if (error.response) {
       dispatch(setErrors(NAMESPACE, thisKey, error.response.data));
+      // For IndexLoginForm. Redirect them to the login page if their
+      // credentials are incorrect.
+      if (history) {
+        history.push(route.login);
+      }
     }
     console.error(error);
   } finally {
