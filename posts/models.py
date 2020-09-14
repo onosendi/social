@@ -8,6 +8,7 @@ class Post(SoftDeleteMixin, TimestampMixin):
     author = models.ForeignKey('users.User', related_name='posts',
                                on_delete=models.CASCADE)
     body = models.TextField(max_length=1500, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     is_reply = models.BooleanField(default=False)
     liked = models.ManyToManyField('users.User', blank=True,
                                    related_name='liked')
