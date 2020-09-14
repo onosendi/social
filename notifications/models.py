@@ -1,9 +1,9 @@
 from django.db import models
 
-from core.models import TimestampModel
+from core.models import TimestampMixin
 
 
-class Notification(TimestampModel):
+class Notification(TimestampMixin):
     NOTIFICATION_TYPES = [
         (1, 'repost'),
         (2, 'like_post'),

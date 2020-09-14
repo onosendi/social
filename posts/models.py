@@ -1,15 +1,14 @@
 from django.db import models
 
-from core.models import TimestampModel
+from core.models import SoftDeleteMixin, TimestampMixin
 from .managers import PostManager
 
 
-class Post(TimestampModel):
-    body = models.TextField(max_length=1500, blank=True)
-    is_active = models.BooleanField(default=True)
-    is_reply = models.BooleanField(default=False)
+class Post(SoftDeleteMixin, TimestampMixin):
     author = models.ForeignKey('users.User', related_name='posts',
                                on_delete=models.CASCADE)
+    body = models.TextField(max_length=1500, blank=True)
+    is_reply = models.BooleanField(default=False)
     liked = models.ManyToManyField('users.User', blank=True,
                                    related_name='liked')
     parent = models.ForeignKey('self', blank=True, null=True,
