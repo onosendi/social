@@ -50,6 +50,13 @@ const EditProfile = () => {
   };
 
   const handleSubmit = async () => {
+    let website;
+    try {
+      website = new URL(formData.website).href;
+    } catch {
+      website = `http://${formData.website}`;
+    }
+    formData.website = website;
     await dispatch(editProfile(formData, user.slug));
     handleClose();
   };
