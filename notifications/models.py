@@ -10,6 +10,7 @@ class Notification(SoftDeleteMixin, TimestampMixin):
         (3, 'reply'),
         (4, 'follow'),
     ]
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     from_user = models.ForeignKey('users.User', on_delete=models.CASCADE,
                                   related_name='notification_from_user')
     is_read = models.BooleanField(default=False)
