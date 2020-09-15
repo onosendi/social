@@ -26,13 +26,13 @@ export const descriptor = {
   createPost: (data) => ({
     data,
     method: 'post',
-    url: `/api/posts/`,
+    url: '/api/posts/',
   }),
 
   createRepost: (data) => ({
     data,
     method: 'post',
-    url: `/api/posts/repost/`,
+    url: '/api/posts/repost/',
   }),
 
   editPost: (postId, body) => ({
@@ -45,7 +45,7 @@ export const descriptor = {
 
   getFeed: ({
     method: 'get',
-    url: `/api/posts/feed/`,
+    url: '/api/posts/feed/',
   }),
 
   getLikes: (postId) => ({
@@ -65,7 +65,7 @@ export const descriptor = {
 
   getPosts: ({
     method: 'get',
-    url: `/api/posts/`,
+    url: '/api/posts/',
   }),
 
   getProfileLikes: (slug) => ({
@@ -80,12 +80,12 @@ export const descriptor = {
 
   getLongRecommendedPosts: ({
     method: 'get',
-    url: `/api/posts/long-recommended-posts/`,
+    url: '/api/posts/long-recommended-posts/',
   }),
 
   getRecommendedPosts: ({
     method: 'get',
-    url: `/api/posts/recommended-posts/`,
+    url: '/api/posts/recommended-posts/',
   }),
 
   getReplies: (postId) => ({
@@ -114,13 +114,13 @@ export const descriptor = {
   createUser: (data) => ({
     data,
     method: 'post',
-    url: `/api/users/auth/register/`,
+    url: '/api/users/auth/register/',
   }),
 
   editPassword: (data) => ({
     data,
     method: 'put',
-    url: `/api/users/edit-password/`,
+    url: '/api/users/edit-password/',
   }),
 
   editProfile: (data) => ({
@@ -132,12 +132,12 @@ export const descriptor = {
   editUser: (data) => ({
     data,
     method: 'patch',
-    url: `/api/users/edit-user/`,
+    url: '/api/users/edit-user/',
   }),
 
   getCurrentUser: ({
     method: 'get',
-    url: `/api/users/current-user/`,
+    url: '/api/users/current-user/',
   }),
 
   getFollowers: (slug) => ({
@@ -152,12 +152,12 @@ export const descriptor = {
 
   getLongRecommendedUsers: ({
     method: 'get',
-    url: `/api/users/long-recommended-users/`,
+    url: '/api/users/long-recommended-users/',
   }),
 
   getRecommendedUsers: ({
     method: 'get',
-    url: `/api/users/recommended-users/`,
+    url: '/api/users/recommended-users/',
   }),
 
   getUser: (slug) => ({
@@ -168,12 +168,12 @@ export const descriptor = {
   loginUser: (data) => ({
     data,
     method: 'post',
-    url: `/api/users/auth/login/`,
+    url: '/api/users/auth/login/',
   }),
 
   logoutUser: ({
     method: 'post',
-    url: `/api/users/auth/logout/`,
+    url: '/api/users/auth/logout/',
   }),
 
   removeFollow: (slug) => ({

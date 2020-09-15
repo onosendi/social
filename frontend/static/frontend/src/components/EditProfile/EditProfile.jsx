@@ -10,8 +10,8 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
 // Local
-import DialogCloseButton from '../../components/DialogCloseButton';
-import CircularProgress from '../../components/CircularProgress';
+import DialogCloseButton from '../DialogCloseButton';
+import CircularProgress from '../CircularProgress';
 
 import useUI from '../../hooks/useUI';
 

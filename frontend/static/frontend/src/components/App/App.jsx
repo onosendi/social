@@ -2,9 +2,9 @@ import React, { Suspense } from 'react';
 import { useSelector } from 'react-redux';
 
 // Local
-import Loading from '../../components/Loading';
-import Routes from '../../components/Routes';
-import Toast from '../../components/Toast';
+import Loading from '../Loading';
+import Routes from '../Routes';
+import Toast from '../Toast';
 
 import store from '../../redux/store';
 import { setUser } from '../../redux/user';

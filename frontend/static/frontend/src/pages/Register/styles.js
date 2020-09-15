@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   login: {
     marginTop: theme.spacing(2),
     textAlign: 'center',
-  }
+  },
 }));
 
 export default useStyles;

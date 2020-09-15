@@ -6,8 +6,8 @@ import InputBase from '@material-ui/core/InputBase';
 import Button from '@material-ui/core/Button';
 
 // Local
-import Avatar from '../../components/Avatar';
-import CircularProgress from '../../components/CircularProgress';
+import Avatar from '../Avatar';
+import CircularProgress from '../CircularProgress';
 
 import useUI from '../../hooks/useUI';
 

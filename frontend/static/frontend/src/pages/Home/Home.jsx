@@ -70,8 +70,8 @@ const Home = () => {
                 paragraph
                 variant="body2"
               >
-                This is the best place to see what&apos;s happening in your world.
-                Find some people to follow and let&apos;s get started!
+                This is the best place to see what&apos;s happening in your
+                world. Find some people to follow and let&apos;s get started!
               </Typography>
               <Button
                 color="primary"

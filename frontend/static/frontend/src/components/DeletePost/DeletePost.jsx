@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import DeleteIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 // Local
-import ConfirmationDialog from '../../components/ConfirmationDialog';
+import ConfirmationDialog from '../ConfirmationDialog';
 
 import useUI from '../../hooks/useUI';
 

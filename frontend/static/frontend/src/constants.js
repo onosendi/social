@@ -11,7 +11,7 @@ export const route = {
   notifications: '/notifications/',
   postDetail: (postId) => `/post/${postId}/`,
   postLikes: (postId) => `/post/${postId}/likes/`,
-  postDetailLikes: (postId, slug) => `/post/${postId}/likes/`,
+  postDetailLikes: (postId) => `/post/${postId}/likes/`,
   profilePosts: (slug) => `/users/${slug}/`,
   profileLikes: (slug) => `/users/${slug}/likes/`,
   profileReplies: (slug) => `/users/${slug}/replies/`,

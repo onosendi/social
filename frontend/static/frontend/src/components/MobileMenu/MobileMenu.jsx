@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 // Material UI
 import Badge from '@material-ui/core/Badge';
-import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
@@ -22,8 +21,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 
 // Local
-import Avatar from '../../components/Avatar';
-import TextLink from '../../components/TextLink';
+import Avatar from '../Avatar';
+import TextLink from '../TextLink';
 
 import { APP_NAME, route } from '../../constants';
 

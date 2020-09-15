@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 
 // Local
-import CircularProgress from '../../components/CircularProgress';
+import CircularProgress from '../CircularProgress';
 
 import useUI from '../../hooks/useUI';
 

@@ -10,8 +10,8 @@ import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
 
 // Local
-import Avatar from '../../components/Avatar';
-import CircularProgress from '../../components/CircularProgress';
+import Avatar from '../Avatar';
+import CircularProgress from '../CircularProgress';
 
 import useUI from '../../hooks/useUI';
 

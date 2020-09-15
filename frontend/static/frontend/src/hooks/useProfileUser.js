@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Local
 import { getUser, key, selectProfileUser } from '../redux/profile';
-import { selectFetched, selectLoading } from '../redux/ui';
-import { selectUser } from '../redux/user';
 
 import useUI from './useUI';
 

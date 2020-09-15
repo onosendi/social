@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
     [theme.breakpoints.up('lg')]: {
       width: 225,
-    }
+    },
   },
   navButtonText: {
     display: 'none',

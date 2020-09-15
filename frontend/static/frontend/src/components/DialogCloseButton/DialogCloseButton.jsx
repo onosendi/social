@@ -15,6 +15,7 @@ const DialogCloseButton = ({ ...props }) => {
     <IconButton
       classes={{ root: classes.button }}
       color="primary"
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     >
       <CloseIcon />

@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       display: 'block',
       padding: theme.spacing(1.5, 0, 0, 2),
-    }
+    },
   },
 }));
 

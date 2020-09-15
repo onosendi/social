@@ -38,7 +38,11 @@ const Index = () => {
           </Typography>
           <div className={classes.ctaContainer}>
             <Typography className={classes.ctaItem}>
-              Join {APP_NAME} today.
+              Join
+              {' '}
+              {APP_NAME}
+              {' '}
+              today.
             </Typography>
             <Button
               className={classes.ctaItem}

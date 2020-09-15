@@ -17,10 +17,10 @@ import Typography from '@material-ui/core/Typography';
 import RepeatIcon from '@material-ui/icons/Repeat';
 
 // Local
-import Avatar from '../../components/Avatar';
-import CircularProgress from '../../components/CircularProgress';
-import DialogCloseButton from '../../components/DialogCloseButton';
-import PostParent from '../../components/PostParent';
+import Avatar from '../Avatar';
+import CircularProgress from '../CircularProgress';
+import DialogCloseButton from '../DialogCloseButton';
+import PostParent from '../PostParent';
 
 import useUI from '../../hooks/useUI';
 

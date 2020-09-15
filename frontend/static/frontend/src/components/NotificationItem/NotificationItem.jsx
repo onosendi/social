@@ -11,10 +11,10 @@ import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 
 // Local
-import Avatar from '../../components/Avatar';
-import CircularProgress from '../../components/CircularProgress';
-import NotificationType from '../../components/NotificationType';
-import TextLink from '../../components/TextLink';
+import Avatar from '../Avatar';
+import CircularProgress from '../CircularProgress';
+import NotificationType from '../NotificationType';
+import TextLink from '../TextLink';
 
 import useUI from '../../hooks/useUI';
 

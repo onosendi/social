@@ -46,7 +46,9 @@ const Search = () => {
             paragraph
             variant="h6"
           >
-            No results found for &quot;{searchString}&quot;
+            No results found for &quot;
+            {searchString}
+            &quot;
           </Typography>
           <Typography
             color="textSecondary"

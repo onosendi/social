@@ -9,15 +9,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
-import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 
 import SendIcon from '@material-ui/icons/Send';
 
 // Local
-import Avatar from '../../components/Avatar';
-import CircularProgress from '../../components/CircularProgress';
-import DialogCloseButton from '../../components/DialogCloseButton';
+import Avatar from '../Avatar';
+import CircularProgress from '../CircularProgress';
+import DialogCloseButton from '../DialogCloseButton';
 
 import useUI from '../../hooks/useUI';
 

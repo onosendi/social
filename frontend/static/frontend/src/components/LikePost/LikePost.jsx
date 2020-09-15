@@ -10,7 +10,7 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 
 // Local
-import CircularProgress from '../../components/CircularProgress';
+import CircularProgress from '../CircularProgress';
 
 import useUI from '../../hooks/useUI';
 

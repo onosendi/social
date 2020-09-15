@@ -12,11 +12,8 @@ import EventNoteIcon from '@material-ui/icons/EventNote';
 import LinkIcon from '@material-ui/icons/Link';
 import LocationIcon from '@material-ui/icons/LocationOnOutlined';
 
-import Skeleton from '@material-ui/lab/Skeleton';
-
 // Local
-import Avatar from '../../components/Avatar';
-import TextLink from '../../components/TextLink';
+import TextLink from '../TextLink';
 
 import { route } from '../../constants';
 

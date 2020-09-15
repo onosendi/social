@@ -7,14 +7,12 @@ import Typography from '@material-ui/core/Typography';
 // Local
 import AuthLayout from '../../components/AuthLayout';
 import Heading from '../../components/Heading';
-import Loading from '../../components/Loading';
 import MobileMenu from '../../components/MobileMenu';
 import NextButton from '../../components/NextButton';
 import NoData from '../../components/NoData';
 import PageTitle from '../../components/PageTitle';
 import Posts from '../../components/Posts';
 import RecommendedNav from '../../components/RecommendedNav';
-import UserList from '../../components/UserList';
 
 import useUI from '../../hooks/useUI';
 

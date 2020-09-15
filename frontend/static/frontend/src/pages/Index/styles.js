@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
     [theme.breakpoints.up('md')]: {
       marginTop: 0,
-    }
+    },
   },
   content: {
     maxWidth: 380,
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       display: 'grid',
       gridTemplateColumns: '50% 50%',
-    }
+    },
   },
   mainContainer: {
     alignItems: 'center',

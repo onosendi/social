@@ -17,8 +17,8 @@ import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/EditOutlined';
 
 // Local
-import CircularProgress from '../../components/CircularProgress';
-import DialogCloseButton from '../../components/DialogCloseButton';
+import CircularProgress from '../CircularProgress';
+import DialogCloseButton from '../DialogCloseButton';
 
 import useUI from '../../hooks/useUI';
 

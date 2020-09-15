@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 // Local
-import Avatar from '../../components/Avatar';
+import Avatar from '../Avatar';
 
 import DeletePost from '../DeletePost';
 import EditPost from '../EditPost';

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   register: {
     marginTop: theme.spacing(2),
     textAlign: 'center',
-  }
+  },
 }));
 
 export default useStyles;

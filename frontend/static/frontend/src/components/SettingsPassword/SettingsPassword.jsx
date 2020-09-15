@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Alert from '@material-ui/lab/Alert';
 
 // Local
-import CircularProgress from '../../components/CircularProgress';
+import CircularProgress from '../CircularProgress';
 
 import useUI from '../../hooks/useUI';
 

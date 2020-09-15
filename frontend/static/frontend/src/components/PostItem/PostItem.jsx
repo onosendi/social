@@ -20,11 +20,11 @@ import RepeatIcon from '@material-ui/icons/Repeat';
 import ReplyIcon from '@material-ui/icons/Reply';
 
 // Local
-import Avatar from '../../components/Avatar';
-import CircularProgress from '../../components/CircularProgress';
-import NextButton from '../../components/NextButton';
-import PostHeader from '../../components/PostHeader';
-import PostParent from '../../components/PostParent';
+import Avatar from '../Avatar';
+import CircularProgress from '../CircularProgress';
+import NextButton from '../NextButton';
+import PostHeader from '../PostHeader';
+import PostParent from '../PostParent';
 
 import { route } from '../../constants';
 
