@@ -46,7 +46,15 @@ class BasePostSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(BasePostSerializer):
-    pass
+    reply_ids = serializers.ListField(read_only=True)
+    repost_ids = serializers.ListField(read_only=True)
+
+    class Meta:
+        model = Post
+        fields = BasePostSerializer.Meta.fields + [
+            'reply_ids',
+            'repost_ids',
+        ]
 
 
 class RepostSerializer(BasePostSerializer):
