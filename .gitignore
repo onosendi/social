@@ -9,7 +9,7 @@ dist/
 *.map
 
 # Django
-/static/
+/social/static/
 media/
 vendors/
 .env
