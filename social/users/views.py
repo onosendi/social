@@ -10,7 +10,7 @@ from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from core.views import PaginationMixin
+from social.views import PaginationMixin
 from notifications.models import Notification
 from .pagination import UserPagination
 from .models import User

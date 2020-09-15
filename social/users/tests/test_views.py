@@ -4,7 +4,7 @@ from django.shortcuts import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from core.testing import create_user
+from social.testing import create_user
 from ..models import User
 
 

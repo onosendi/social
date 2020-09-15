@@ -8,8 +8,8 @@ from rest_framework import views as rest_views
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from core.permissions import IsOwnerOrReadOnly
-from core.views import PaginationMixin
+from social.permissions import IsOwnerOrReadOnly
+from social.views import PaginationMixin
 from notifications.models import Notification
 from .pagination import PostPagination, ProfileLikesPagination, ReplyPagination
 from .models import Post

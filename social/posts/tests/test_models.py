@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from core.testing import create_post, create_user
+from social.testing import create_post, create_user
 
 
 class PostModelTestCase(TestCase):

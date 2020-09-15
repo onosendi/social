@@ -7,7 +7,7 @@ from django.contrib.postgres.fields.citext import (
 from django.utils.text import slugify
 from django.utils.timezone import now
 
-from core.models import SoftDeleteMixin, TimestampMixin
+from social.models import SoftDeleteMixin, TimestampMixin
 from .managers import UserManager
 
 

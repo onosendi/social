@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'rest_framework',
 
-    'core',
     'frontend',
     'notifications',
     'posts',

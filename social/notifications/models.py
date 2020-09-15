@@ -1,6 +1,6 @@
 from django.db import models
 
-from core.models import SoftDeleteMixin, TimestampMixin
+from social.models import SoftDeleteMixin, TimestampMixin
 
 
 class Notification(SoftDeleteMixin, TimestampMixin):

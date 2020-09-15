@@ -2,7 +2,7 @@ import simplejson as json
 
 from django.test import TestCase
 
-from core.testing import create_user
+from social.testing import create_user
 
 
 class AppViewTestCase(TestCase):
