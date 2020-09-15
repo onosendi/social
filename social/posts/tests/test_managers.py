@@ -39,8 +39,20 @@ class PostManagerTestCase(TestCase):
         p2.is_active = False
         p2.save()
 
-        post_count = Post.objects.posts().filter(author=self.user1).count()
+        posts = Post.objects.posts().filter(author=self.user1)
+
+        # Check post count
+        post_count = posts.count()
         self.assertEqual(post_count, 1)
+
+        # Check reply count
+        reply_count = len(posts[0].reply_ids)
+        self.assertEqual(reply_count, 1)
+
+        # Check repost count
+        create_post(self.user1, parent=p1)
+        repost_count = len(posts[0].repost_ids)
+        self.assertEqual(repost_count, 1)
 
     def test_profile_posts(self):
         create_post(self.user1)
