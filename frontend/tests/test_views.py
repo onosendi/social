@@ -1,11 +1,8 @@
 import simplejson as json
 
-from django.contrib.auth import login
-from django.shortcuts import reverse
 from django.test import TestCase
 
 from core.testing import create_user
-from .. import views
 
 
 class AppViewTestCase(TestCase):

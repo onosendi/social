@@ -1,10 +1,6 @@
-from faker import Faker
-
-from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from core.testing import create_user
-from ..models import User
 
 
 class Mixin:

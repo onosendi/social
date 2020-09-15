@@ -10,7 +10,6 @@ from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from core.permissions import IsOwnerOrReadOnly
 from core.views import PaginationMixin
 from notifications.models import Notification
 from .pagination import UserPagination
@@ -147,6 +146,7 @@ class RecommendedUsersAPIView(rest_generics.ListAPIView):
 
     def get_queryset(self):
         return User.objects.recommend_users(self.request.user)
+
 
 class LongRecommendedUsersAPIView(rest_generics.ListAPIView):
     pagination_class = UserPagination
