@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "parcel build frontend/static/frontend/src/index.jsx index.jsx --out-dir frontend/static/frontend/dist --out-file main",
-    "start": "parcel frontend/static/frontend/src/index.jsx --hmr-port 38775 --out-dir frontend/static/frontend/dist --out-file main"
+    "build": "parcel build social/frontend/static/frontend/src/index.jsx index.jsx --out-dir social/frontend/static/frontend/dist --out-file main",
+    "start": "parcel social/frontend/static/frontend/src/index.jsx --hmr-port 38775 --out-dir social/frontend/static/frontend/dist --out-file main"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/onosendi/django-social.git"
+    "url": "git+https://github.com/onosendi/social.git"
   },
   "keywords": [],
   "author": "Daniel Lindegren",
@@ -27,6 +27,7 @@
     "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^2.5.1",
     "parcel-bundler": "^1.12.4",
+    "parcel-plugin-clean-dist": "0.0.6",
     "react-hot-loader": "^4.12.21",
     "sass": "^1.26.10"
   },
