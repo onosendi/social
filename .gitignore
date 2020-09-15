@@ -4,6 +4,7 @@ __pycache__/
 
 # npm
 node_modules/
+dist/
 .cache/
 *.map
 
