@@ -182,7 +182,7 @@ const PostItem = ({ expandReplies, postId }) => {
             onClick={handleReplies}
           >
             <Badge
-              badgeContent={post.reply_ids.length}
+              badgeContent={post.reply_ids?.length || 0}
               max={9999}
             >
               <ReplyIcon />
