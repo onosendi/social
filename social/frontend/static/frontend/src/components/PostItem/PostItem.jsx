@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 // Material UI
+import Badge from '@material-ui/core/Badge';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Collapse from '@material-ui/core/Collapse';
@@ -180,7 +181,12 @@ const PostItem = ({ expandReplies, postId }) => {
             disabled={loading}
             onClick={handleReplies}
           >
-            <ReplyIcon />
+            <Badge
+              badgeContent={post.reply_ids.length}
+              max={9999}
+            >
+              <ReplyIcon />
+            </Badge>
             {loading && <CircularProgress />}
           </IconButton>
         </div>
