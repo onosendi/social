@@ -17,12 +17,12 @@ def create_post(author, body=None, is_reply=False, parent=None):
     )
 
 
-def create_user():
+def create_user(name=None):
     password = faker.password()
     while True:
         try:
             with transaction.atomic():
-                name = faker.name()
+                name = name or faker.name()
                 username = name.split(' ')[0].lower()
                 user = User.objects.create_user(
                     email=f'{username}@testing.com',
