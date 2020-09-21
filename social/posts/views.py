@@ -3,8 +3,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework import (
     generics as rest_generics,
     status,
+    views as rest_views,
 )
-from rest_framework import views as rest_views
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
