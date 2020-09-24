@@ -1,11 +1,13 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, get_user_model
 from django.shortcuts import reverse
 
 from rest_framework import status
 from rest_framework.test import APITestCase
 
 from social.testing import create_user
-from ..models import User
+
+
+User = get_user_model()
 
 
 class Mixin:

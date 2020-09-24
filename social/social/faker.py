@@ -2,20 +2,19 @@ from random import randint
 
 from faker import Faker
 
-from django.db import (
-    IntegrityError,
-    transaction,
-)
+from django.contrib.auth import get_user_model
+from django.db import IntegrityError, transaction
 
-from .models import User, Profile
+from users.models import Profile
+
 
 explicit_users = [
     ('Jim', 'Fowler'),
     ('Lucy', 'McDonald'),
     ('John', 'Cummings'),
 ]
-
 faker = Faker()
+User = get_user_model()
 
 
 def _create_user(
@@ -69,7 +68,7 @@ def create_users(count: int = 100) -> None:
     The length of :var:`explicit_users` is subtracted from ``count`` so the
     correct number of users will be added.
 
-    :param int count: Number of random users to create.
+    :param count: Number of random users to create.
     '''
     for first, last in explicit_users:
         _create_user(first, last)

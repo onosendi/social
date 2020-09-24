@@ -1,3 +1,5 @@
+from django.contrib.auth import get_user_model
+
 from rest_framework import (
     filters,
     generics as rest_generics,
@@ -5,11 +7,17 @@ from rest_framework import (
 from rest_framework.permissions import IsAuthenticated
 
 from search.pagination import SearchPagination
-from users.models import User
 from users.serializers import UserSerializer
 
 
+User = get_user_model()
+
+
 class SearchAPIView(rest_generics.ListAPIView):
+    ''' Get search results for given query string.
+
+    Searches `User` `username` and `name` fields.
+    '''
     filter_backends = [filters.SearchFilter]
     pagination_class = SearchPagination
     permission_classes = [IsAuthenticated]
