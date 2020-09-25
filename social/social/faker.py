@@ -1,10 +1,13 @@
-from random import randint
+import datetime
+from random import randint, randrange
 
 from faker import Faker
 
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError, transaction
+from django.utils import timezone
 
+from posts.models import Post
 from users.models import Profile
 
 
@@ -75,3 +78,85 @@ def create_users(count: int = 100) -> None:
     count = count - len(explicit_users)
     for _ in range(count):
         _create_user()
+
+
+def create_posts():
+    users = User.objects.all()
+    for user in users:
+        post_number = randint(0, 15)
+        for _ in range(post_number):
+            Post.objects.create(
+                author=user,
+                body=faker.paragraph(),
+            )
+
+
+def create_replies():
+    users = User.objects.all()
+    post_ids = Post.objects.filter(is_reply=False).values_list('id', flat=True)
+    post_ids_length = len(post_ids)
+    for user in users:
+        reply_number = randint(0, round(len(users) * .15))
+        for _ in range(reply_number):
+            id = post_ids[randint(0, post_ids_length - 1)]
+            parent = Post.objects.get(id=id)
+            Post.objects.create(
+                author=user,
+                body=faker.paragraph(),
+                is_reply=True,
+                parent=parent,
+            )
+
+
+def create_reposts():
+    users = User.objects.all()
+    post_ids = Post.objects.filter(is_reply=False).values_list('id', flat=True)
+    post_ids_length = len(post_ids)
+    for user in users:
+        repost_number = randint(0, 3)
+        for _ in range(repost_number):
+            id = post_ids[randint(0, post_ids_length - 1)]
+            parent = Post.objects.get(id=id)
+            body = '' if randint(0, 1) else faker.paragraph()
+            Post.objects.create(
+                author=user,
+                body=body,
+                parent=parent,
+            )
+
+
+def create_likes():
+    users = User.objects.all()
+    post_ids = Post.objects.values_list('id', flat=True)
+    post_ids_length = len(post_ids)
+    for user in users:
+        like_number = round(post_ids_length * .20)
+        for _ in range(like_number):
+            id = post_ids[randint(1, post_ids_length - 1)]
+            post = Post.objects.get(id=id)
+            post.liked.add(user)
+
+
+def create_followers():
+    users = User.objects.all()
+    user_ids = User.objects.values_list('id', flat=True)
+    user_ids_length = len(user_ids)
+    for user in users:
+        follow_number = randint(0, round(user_ids_length * .20))
+        for _ in range(follow_number):
+            id = user_ids[randint(1, user_ids_length - 1)]
+            followed_user = User.objects.get(id=id)
+            user.follow(followed_user)
+
+
+def randomize_timestamps():
+    posts = Post.objects.all()
+    for post in posts:
+        start_time = datetime.datetime(2019, 1, 1, 0, 0, 0)
+        end_time = datetime.datetime.now()
+        seconds_diff = round((end_time-start_time).total_seconds())
+        random_seconds = randrange(seconds_diff)
+        new_date = start_time + datetime.timedelta(seconds=random_seconds)
+        new_date = new_date.replace(tzinfo=timezone.get_default_timezone())
+        post.created_at = new_date
+        post.save()
