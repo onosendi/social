@@ -1,10 +1,10 @@
-# import os
+import os
 import datetime
 from random import randint, randrange
 
 from faker import Faker
 
-# from django.conf import settings
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError, transaction
 from django.utils import timezone
@@ -138,7 +138,40 @@ def randomize_timestamps():
         post.save()
 
 
-# def set_images():
-#     base_dir = settings.BASE_DIR
-#     male_img_dir = os.path.join(base_dir, 'media/fake/male')
-#     female_img_dir = os.path.join(base_dir, 'media/fake/female')
+def set_images():
+    base_dir = settings.BASE_DIR
+    male_img_dir = 'fake/male'
+    female_img_dir = 'fake/female'
+    users = User.objects.all()
+    for user in users:
+        if user.profile.sex:
+            profile_image_list = Profile\
+                .objects\
+                .values_list('image', flat=True)
+            used_image_list = []
+            for image in profile_image_list:
+                image_split = image.split('/')
+                filename = image_split.pop()
+                if filename:
+                    used_image_list.append(filename)
+            if user.profile.sex == 'M':
+                sex_img_dir = male_img_dir
+            else:
+                sex_img_dir = female_img_dir
+            image_dir = os.path.join(base_dir, 'media', sex_img_dir)
+            dir_image_list = os.listdir(image_dir)
+            available_images = list(set(dir_image_list) - set(used_image_list))
+            random_image = available_images[randrange(len(available_images))]
+            user.profile.image = os.path.join(sex_img_dir, random_image)
+            user.profile.save()
+
+
+def set_user_data():
+    create_users()
+    create_posts()
+    create_replies()
+    create_reposts()
+    create_likes()
+    create_followers()
+    randomize_timestamps()
+    set_images()
