@@ -4,12 +4,12 @@ from social.models import SoftDeleteMixin, TimestampMixin
 
 
 class Notification(SoftDeleteMixin, TimestampMixin):
-    NOTIFICATION_TYPES = [
-        (1, 'repost'),
-        (2, 'like_post'),
-        (3, 'reply'),
-        (4, 'follow'),
-    ]
+    class NotificationTypes(models.IntegerChoices):
+        REPOST = 1
+        LIKE_POST = 2
+        REPLY = 3
+        FOLLOW = 4
+
     created_at = models.DateTimeField(
         auto_now_add=True,
         db_index=True,
@@ -32,7 +32,7 @@ class Notification(SoftDeleteMixin, TimestampMixin):
         on_delete=models.CASCADE,
         related_name='notifications',
     )
-    type = models.PositiveIntegerField(choices=NOTIFICATION_TYPES)
+    type = models.PositiveIntegerField(choices=NotificationTypes.choices)
 
     def __str__(self):
         return f'{self.from_user} => {self.to_user}: {self.type}'
