@@ -86,10 +86,19 @@ class User(SoftDeleteMixin, TimestampMixin, AbstractBaseUser):
 
 
 class Profile(models.Model):
+    class SexTypes(models.TextChoices):
+        MALE = 'M'
+        FEMALE = 'F'
+
     banner = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True)
     bio = models.TextField(max_length=500, blank=True)
     image = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True)
     location = models.CharField(max_length=100, blank=True)
+    sex = models.CharField(
+        blank=True,
+        max_length=1,
+        choices=SexTypes.choices,
+    )
     user = models.OneToOneField('users.User', on_delete=models.CASCADE)
     website = models.URLField(blank=True)
 
