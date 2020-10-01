@@ -46,10 +46,10 @@ In a PostgreSQL shell (`sudo -u postgres psql`), issue the following commands:
 ### Finally
 Issue the following command in the root directory:
 
-```$ ./upgrade.sh```
+    $ ./upgrade.sh
 
 If everything goes to plan, run a Django development server:
 
-```$ social/manage.py runserver```
+    $ social/manage.py runserver
 
 Then in your browser, visit `localhost:8000`
