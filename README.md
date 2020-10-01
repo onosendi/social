@@ -47,13 +47,33 @@ In a PostgreSQL shell (`sudo -u postgres psql`), issue the following commands:
     postgres=# grant all privileges on database social to social;
     postgres=# alter user social with superuser;
 
+### NPM
+#### Install dependencies
+
+    npm install
+    
+#### Build/bundle assets
+
+    npm run build
+    
+*For development, use `npm start`*
+
+### Python/Django
+#### Create virtual environment and install requirements
+
+    python3 -m venv venv
+    source venv/bin/activate
+    pip3 install --upgrade pip
+    pip3 install wheel
+    pip3 install -r requirements.txt
+    
+#### Migrate Django's migrations to database
+
+    python3 social/manage.py migrate
+    
 ### Finally
-Issue the following command in the root directory:
+#### Run Django's development server
 
-    $ ./upgrade.sh
-
-If everything goes to plan, run a Django development server:
-
-    $ social/manage.py runserver
-
-Then in your browser, visit `localhost:8000`
+    python3 social/manage.py runserver
+    
+Then in your browser, visit `localhost:8000` and register a new user.
