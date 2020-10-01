@@ -1,4 +1,5 @@
 class PaginationMixin:
+    ''' Pagination mixin for views that do not inherit generic DRF views. '''
     pagination_class = None
 
     @property

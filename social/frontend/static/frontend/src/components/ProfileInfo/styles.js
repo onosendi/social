@@ -5,10 +5,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.grey[300],
     backgroundImage: (profileUser) => (
       profileUser.profile?.image
-        ? `url(${profileUser.profile.image})`
+        ? `url('${profileUser.profile.image}')`
         : 'none'
     ),
-    backgroundSize: 'contain',
+    backgroundSize: 'cover',
     borderColor: theme.palette.common.white,
     borderRadius: '50%',
     borderStyle: 'solid',
@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '-18%',
     position: 'relative',
     width: 160,
-    zIndex: 1,
   },
   avatarAndFollow: {
     display: 'flex',

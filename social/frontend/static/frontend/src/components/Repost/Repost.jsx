@@ -5,6 +5,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Material UI
+import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -72,7 +73,12 @@ const Repost = ({ postId }) => {
       <IconButton
         onClick={handleOpen}
       >
-        <RepeatIcon />
+        <Badge
+          badgeContent={post.repost_ids?.length || 0}
+          max={9999}
+        >
+          <RepeatIcon />
+        </Badge>
       </IconButton>
       <Dialog
         open={dialogOpen}

@@ -32,10 +32,7 @@ const searchSlice = createSlice({
     setSearch: (state, { payload }) => { state.search = payload; },
     setSearchNext: (state, { payload }) => {
       state.search.next = payload.next;
-      state.search.results = [
-        ...state.search.results,
-        ...payload.results,
-      ];
+      state.search.results.push(...payload.results);
     },
     setSearchString: (state, { payload }) => {
       state.searchString = payload;

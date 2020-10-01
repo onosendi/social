@@ -17,8 +17,10 @@ from .serializers import NotificationSerializer
 @api_view()
 @permission_classes([IsAuthenticated])
 def unread_notification_count_view(request):
-    ''' Return user's notification count. This needs its own view just for the
-    notification badge. '''
+    ''' Return user's notification count.
+
+    This view is used for polling for the notification badge. Consider sockets
+    instead. '''
     r_user = request.user
     count = Notification.objects\
         .filter(

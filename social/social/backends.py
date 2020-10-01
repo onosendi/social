@@ -1,14 +1,27 @@
+from typing import Union
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
+
 
 User = get_user_model()
 
 
 class UsernameOrEmailAuth(ModelBackend):
-    def authenticate(self, request, login=None, password=None, **kwargs):
+    def authenticate(
+        self,
+        request,
+        login: Union[str, None] = None,
+        password: Union[str, None] = None,
+        **kwargs,
+    ) -> Union[User, None]:
         ''' Override default authentication to allow for both email and
-        username login. '''
+        username login.
+
+        :param login: Username or email address.
+        :param password: Password.
+        '''
         if login is None:
             login = kwargs.get(User.USERNAME_FIELD)
         if login is None or password is None:

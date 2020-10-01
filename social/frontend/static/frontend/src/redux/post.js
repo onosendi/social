@@ -73,7 +73,14 @@ const postSlice = createSlice({
           ...profile.results,
         ];
       }
-      state.postById[payload.id] = payload;
+      // When creating a post, the payload returned from the server does not
+      // include reply/repost IDs. Let's fake them here.
+      const newPayload = {
+        ...payload,
+        reply_ids: [],
+        repost_ids: [],
+      };
+      state.postById[payload.id] = newPayload;
     },
     setPostById: (state, { payload }) => {
       state.postById = { ...state.postById, ...reduceById(payload.results) };

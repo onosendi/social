@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'social.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'social',
+        'NAME': os.environ['DATABASE_NAME'],
         'USER': os.environ['DATABASE_USER'],
         'PASSWORD': os.environ['DATABASE_PASSWORD'],
     }
@@ -134,4 +134,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Custom `User` model.
 AUTH_USER_MODEL = 'users.User'
 
-AUTHENTICATION_BACKENDS = ['users.backends.UsernameOrEmailAuth']
+AUTHENTICATION_BACKENDS = ['social.backends.UsernameOrEmailAuth']

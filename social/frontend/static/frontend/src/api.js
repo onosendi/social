@@ -8,7 +8,7 @@ const api = async (descriptor, nextUrl = null) => {
   if (nextUrl) {
     desc.url = nextUrl;
   }
-  const { data } = await axios({ ...desc });
+  const { data } = await axios(desc);
   return data;
 };
 

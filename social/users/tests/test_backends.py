@@ -4,6 +4,7 @@ from django.contrib.auth import (
 )
 from django.test import TestCase
 
+
 User = get_user_model()
 
 

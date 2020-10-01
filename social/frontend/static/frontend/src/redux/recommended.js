@@ -46,10 +46,7 @@ const recommendedSlice = createSlice({
     },
     setLongUsers: (state, { payload }) => {
       state.longUsers.next = payload.next;
-      state.longUsers.results = [
-        ...state.longUsers.results,
-        ...payload.results,
-      ];
+      state.longUsers.results.push(...payload.results);
     },
     setPosts: (state, { payload }) => { state.posts = payload; },
     setUsers: (state, { payload }) => { state.users = payload; },
