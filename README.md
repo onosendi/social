@@ -24,6 +24,10 @@ If you come across this and see something I could have done better, I am complet
 - Recommended users/posts: Does not use any special algorithm. Recommended posts are the latest posts of users who you are not following. Recommended users are users you are not following.
 
 ## Installation
+### Clone repository
+
+    git clone https://github.com/onosendi/social.git
+
 ### Environment File
 Create an `.env` file in the root directory (next to `requirements.txt`) with the following content:
 
