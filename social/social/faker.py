@@ -145,8 +145,7 @@ def set_images():
     users = User.objects.all()
     for user in users:
         if user.profile.sex:
-            profile_image_list = Profile\
-                .objects\
+            profile_image_list = Profile.objects\
                 .values_list('image', flat=True)
             used_image_list = []
             for image in profile_image_list:
@@ -162,7 +161,30 @@ def set_images():
             dir_image_list = os.listdir(image_dir)
             available_images = list(set(dir_image_list) - set(used_image_list))
             random_image = available_images[randrange(len(available_images))]
-            user.profile.image = os.path.join(sex_img_dir, random_image)
+            if random_image:
+                user.profile.image = os.path.join(sex_img_dir, random_image)
+                user.profile.save()
+
+
+def set_banners():
+    base_dir = settings.BASE_DIR
+    banner_dir = 'fake/banner'
+    users = User.objects.all()
+    for user in users:
+        banner_image_list = Profile.objects\
+            .values_list('banner', flat=True)
+        used_image_list = []
+        for image in banner_image_list:
+            image_split = image.split('/')
+            filename = image_split.pop()
+            if filename:
+                used_image_list.append(filename)
+        image_dir = os.path.join(base_dir, 'media', banner_dir)
+        dir_image_list = os.listdir(image_dir)
+        available_images = list(set(dir_image_list) - set(used_image_list))
+        random_image = available_images[randrange(len(available_images))]
+        if random_image:
+            user.profile.banner = os.path.join(banner_dir, random_image)
             user.profile.save()
 
 
@@ -175,3 +197,4 @@ def set_user_data():
     create_followers()
     randomize_timestamps()
     set_images()
+    set_banners()
