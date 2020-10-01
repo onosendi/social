@@ -25,31 +25,25 @@ If you come across this and see something I could have done better, I am complet
 
 ## Installation
 ### Environment File
-
 Create an `.env` file in the root directory (next to `requirements.txt`) with the following content:
 
-```
-SECRET_KEY='super secret key'
-ALLOWED_HOSTS='localhost;*'
-DATABASE_NAME='social'
-DATABASE_USER='social'
-DATABASE_PASSWORD='social'
-```
+    SECRET_KEY='super secret key'
+    ALLOWED_HOSTS='localhost;*'
+    DATABASE_NAME='social'
+    DATABASE_USER='social'
+    DATABASE_PASSWORD='social'
 
 ### PostgreSQL
 Create a database, user, and grant user superuser permissions. Superuser permissions have to be granted in order to use Django's `CITextExtension`.
 
 In a PostgreSQL shell (`sudo -u postgres psql`), issue the following commands:
 
-```
-postgres=# create database social;
-postgres=# create user social with encrypted password 'social';
-postgres=# grant all privileges on database social to social;
-postgres=# alter user social with superuser;
-```
+    postgres=# create database social;
+    postgres=# create user social with encrypted password 'social';
+    postgres=# grant all privileges on database social to social;
+    postgres=# alter user social with superuser;
 
 ### Finally
-
 Issue the following command in the root directory:
 
 ```$ ./upgrade.sh```
