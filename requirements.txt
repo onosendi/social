@@ -5,7 +5,7 @@ django-extensions==3.0.8
 djangorestframework==3.11.1
 Faker==4.1.2
 Pillow==7.2.0
-psycopg2==2.8.6
+psycopg2-binary==2.8.6
 python-dateutil==2.8.1
 python-dotenv==0.14.0
 pytz==2020.1
