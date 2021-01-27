@@ -6,6 +6,3 @@ class UsersConfig(AppConfig):
 
     def ready(self):
         from . import signals # noqa
-
-        # TODO: Remove this
-        # import social.management.fake_content
