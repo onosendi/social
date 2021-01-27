@@ -59,7 +59,7 @@ echo ""
 eval $COMMAND || exit 1
 
 # Install required Python packages
-COMMAND="pip3 install -r requirements.txt"
+COMMAND="pip3 install -r requirements/production.txt"
 echo ""
 echo "Installing core dependencies ($COMMAND)..."
 echo ""
