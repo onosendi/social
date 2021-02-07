@@ -3,8 +3,6 @@
 ### Overview
 Twitter-esque social networking site.
 
-If you come across this and see something I could have done better, I am completely open to suggestions. Do not hesitate to create a pull request, or open an issue.
-
 ### Technology stack
 - Django / Django Rest Framework
 - PostgreSQL
