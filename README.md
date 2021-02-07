@@ -3,14 +3,11 @@
 ### Overview
 Twitter-esque social networking site.
 
-This was my first project using React, Redux, and Django Rest Framework. This was a great learning experience, with many obstacles I had to overcome.
-
 If you come across this and see something I could have done better, I am completely open to suggestions. Do not hesitate to create a pull request, or open an issue.
 
 ### Technology stack
 - Django / Django Rest Framework
 - PostgreSQL
-- Parcel
 - React
 - Redux
 
