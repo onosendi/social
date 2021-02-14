@@ -14,10 +14,9 @@ urlpatterns = [
     path('<int:pk>/',
          views.PostDetailAPIView.as_view(),
          name='post_detail'),
-    path(
-        '<int:pk>/likes/',
-        views.LikesAPIView.as_view(),
-        name='likes'),
+    path('<int:pk>/likes/',
+         views.LikesAPIView.as_view(),
+         name='likes'),
     path('<int:pk>/replies/',
          views.PostRepliesAPIView.as_view(),
          name='replies'),
