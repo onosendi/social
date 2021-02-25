@@ -2,4 +2,5 @@
 
 django-extensions
 django-debug-toolbar
+flake8
 ipython

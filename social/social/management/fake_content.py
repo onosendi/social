@@ -1,22 +1,21 @@
 import datetime
 import os
 import pathlib
-from random import randrange
+from random import randint, randrange
 import shutil
-from typing import Any, List, Optional
+from typing import Any, List
 
-from mixer.backend.django import mixer
 from faker import Faker
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.db import IntegrityError, transaction
 from django.utils import timezone
 
 from posts.models import Post
 from users.models import Profile
 
 User = get_user_model()
-
 faker = Faker()
 
 
@@ -31,114 +30,6 @@ def random_items(count: int, items: List[Any]):
         if random_item not in result:
             result.append(random_item)
     return result
-
-
-class ManageContent:
-    def __init__(self, user_count):
-        self._users = mixer.cycle(user_count).blend(User)
-        self._banner_images = self._get_images('banner')
-        self._female_images = self._get_images('female')
-        self._male_images = self._get_images('male')
-        self._posts = []
-
-    def __iter__(self):
-        for user in self._users:
-            yield user
-
-    def _concat_dir(self, dir_name):
-        concat_dir = os.path.join(
-            settings.BASE_DIR,
-            f'media/fake/out/{dir_name}',
-        )
-
-        isdir = os.path.isdir(concat_dir)
-        if isdir is False:
-            raise Exception(f'Directory "{concat_dir}" does not exist')
-
-        return concat_dir
-
-    def _create_followers(self):
-        for user in self:
-            follow_num = randrange(15)
-            random_users = random_items(follow_num, self._users)
-            for _ in range(follow_num):
-                follow_user = random_users.pop()
-                user.follow(follow_user)
-
-    def _create_post_likes(self):
-        for user in self:
-            like_num = randrange(15)
-            random_posts = random_items(like_num, self._posts)
-            for _ in range(like_num):
-                post = random_posts.pop()
-                post.liked.add(user)
-
-    def _create_posts(self):
-        for user in self:
-            post_num = randrange(15)
-            for _ in range(post_num):
-                self._posts += [mixer.blend(Post, author=user)]
-
-    def _create_profiles(self):
-        for user in self:
-            sex = ['M', 'F'][randrange(2)]
-            if sex == 'M':
-                dir_name = 'male'
-                first_name = faker.first_name_male()
-                profile_image = self._male_images.pop()
-            else:
-                dir_name = 'female'
-                first_name = faker.first_name_female()
-                profile_image = self._female_images.pop()
-
-            user.name = f'{first_name} {faker.last_name()}'
-            user.save()
-
-            Profile.objects.filter(user=user).update(
-                sex=sex,
-                bio=faker.company(),
-                location=f'{faker.city()}, {faker.state()}',
-                image=f'fake/out/{dir_name}/{profile_image}',
-                banner=f'fake/out/banner/{self._banner_images.pop()}',
-                website=f'https://{faker.word()}.com',
-            )
-
-    def _create_replies_reposts(self, is_repost=False):
-        for user in self:
-            posts = Post.objects.filter(parent=None).all()
-            post_num = randrange(round(len(self._users) * .15))
-            random_posts = random_items(post_num, posts)
-            for _ in range(post_num):
-                self._posts += [mixer.blend(
-                    Post,
-                    author=user,
-                    is_reply=True if is_repost is False else False,
-                    parent=random_posts.pop(),
-                )]
-
-    def _get_images(self, dir_name):
-        directory = self._concat_dir(dir_name)
-        return os.listdir(directory)
-
-    def _randomize_post_timestamps(self):
-        for post in self._posts:
-            start_time = datetime.datetime(2019, 1, 1, 0, 0, 0)
-            end_time = datetime.datetime.now()
-            seconds_diff = round((end_time-start_time).total_seconds())
-            random_seconds = randrange(seconds_diff)
-            new_date = start_time + datetime.timedelta(seconds=random_seconds)
-            new_date = new_date.replace(tzinfo=timezone.get_default_timezone())
-            post.created_at = new_date
-            post.save()
-
-    def create(self):
-        self._create_profiles()
-        self._create_posts()
-        self._create_replies_reposts()
-        self._create_replies_reposts(is_repost=True)
-        self._create_post_likes()
-        self._create_followers()
-        self._randomize_post_timestamps()
 
 
 class ManageImages:
@@ -207,9 +98,187 @@ class ManageImages:
         self._copy_images_out('male')
 
 
-def create_all(count: Optional[int] = 100):
-    manage_images = ManageImages(count)
-    manage_images.all_images()
+def create_users(count: int = 100) -> None:
+    def get_sex():
+        sex = ['M', 'F']
+        return sex[randrange(2)]
 
-    manage_content = ManageContent(count)
-    manage_content.create()
+    for _ in range(count):
+        sex = get_sex()
+        if sex == 'M':
+            first = faker.first_name_male()
+        else:
+            first = faker.first_name_female()
+        last = faker.last_name()
+        password = None
+        username = first.lower()
+        while True:
+            try:
+                with transaction.atomic():
+                    email = f'{username}@testing.com'
+                    user = User.objects.create_user(
+                        name=f'{first} {last}',
+                        username=username,
+                        email=email,
+                        password=password,
+                    )
+                    profile_data = {
+                        'bio': faker.company(),
+                        'location': f'{faker.city()}, {faker.state()}',
+                        'sex': sex,
+                    }
+                    Profile.objects\
+                        .filter(user_id=user.id)\
+                        .update(**profile_data)
+            except IntegrityError:
+                random_number = randint(0, 9)
+                username = f'{username}{random_number}'
+            else:
+                break
+
+
+def create_posts():
+    users = User.objects.all()
+    for user in users:
+        post_number = randint(0, 15)
+        for _ in range(post_number):
+            Post.objects.create(
+                author=user,
+                body=faker.paragraph(),
+            )
+
+
+def create_replies():
+    users = User.objects.all()
+    post_ids = Post.objects.filter(is_reply=False).values_list('id', flat=True)
+    post_ids_length = len(post_ids)
+    for user in users:
+        reply_number = randint(0, round(len(users) * .15))
+        for _ in range(reply_number):
+            id = post_ids[randint(0, post_ids_length - 1)]
+            parent = Post.objects.get(id=id)
+            Post.objects.create(
+                author=user,
+                body=faker.paragraph(),
+                is_reply=True,
+                parent=parent,
+            )
+
+
+def create_reposts():
+    users = User.objects.all()
+    post_ids = Post.objects.filter(is_reply=False).values_list('id', flat=True)
+    post_ids_length = len(post_ids)
+    for user in users:
+        repost_number = randint(0, 3)
+        for _ in range(repost_number):
+            id = post_ids[randint(0, post_ids_length - 1)]
+            parent = Post.objects.get(id=id)
+            body = '' if randint(0, 1) else faker.paragraph()
+            Post.objects.create(
+                author=user,
+                body=body,
+                parent=parent,
+            )
+
+
+def create_likes():
+    users = User.objects.all()
+    post_ids = Post.objects.values_list('id', flat=True)
+    post_ids_length = len(post_ids)
+    for user in users:
+        like_number = round(post_ids_length * .20)
+        for _ in range(like_number):
+            id = post_ids[randint(1, post_ids_length - 1)]
+            post = Post.objects.get(id=id)
+            post.liked.add(user)
+
+
+def create_followers():
+    users = User.objects.all()
+    user_ids = User.objects.values_list('id', flat=True)
+    user_ids_length = len(user_ids)
+    for user in users:
+        follow_number = randint(0, round(user_ids_length * .20))
+        for _ in range(follow_number):
+            id = user_ids[randint(1, user_ids_length - 1)]
+            followed_user = User.objects.get(id=id)
+            user.follow(followed_user)
+
+
+def randomize_timestamps():
+    posts = Post.objects.all()
+    for post in posts:
+        start_time = datetime.datetime(2019, 1, 1, 0, 0, 0)
+        end_time = datetime.datetime.now()
+        seconds_diff = round((end_time-start_time).total_seconds())
+        random_seconds = randrange(seconds_diff)
+        new_date = start_time + datetime.timedelta(seconds=random_seconds)
+        new_date = new_date.replace(tzinfo=timezone.get_default_timezone())
+        post.created_at = new_date
+        post.save()
+
+
+def set_images():
+    base_dir = settings.BASE_DIR
+    male_img_dir = 'fake/out/male'
+    female_img_dir = 'fake/out/female'
+    users = User.objects.all()
+    for user in users:
+        if user.profile.sex:
+            profile_image_list = Profile.objects\
+                .values_list('image', flat=True)
+            used_image_list = []
+            for image in profile_image_list:
+                image_split = image.split('/')
+                filename = image_split.pop()
+                if filename:
+                    used_image_list.append(filename)
+            if user.profile.sex == 'M':
+                sex_img_dir = male_img_dir
+            else:
+                sex_img_dir = female_img_dir
+            image_dir = os.path.join(base_dir, 'media', sex_img_dir)
+            dir_image_list = os.listdir(image_dir)
+            available_images = list(set(dir_image_list) - set(used_image_list))
+            random_image = available_images[randrange(len(available_images))]
+            if random_image:
+                user.profile.image = os.path.join(sex_img_dir, random_image)
+                user.profile.save()
+
+
+def set_banners():
+    base_dir = settings.BASE_DIR
+    banner_dir = 'fake/out/banner'
+    users = User.objects.all()
+    for user in users:
+        banner_image_list = Profile.objects\
+            .values_list('banner', flat=True)
+        used_image_list = []
+        for image in banner_image_list:
+            image_split = image.split('/')
+            filename = image_split.pop()
+            if filename:
+                used_image_list.append(filename)
+        image_dir = os.path.join(base_dir, 'media', banner_dir)
+        dir_image_list = os.listdir(image_dir)
+        available_images = list(set(dir_image_list) - set(used_image_list))
+        random_image = available_images[randrange(len(available_images))]
+        if random_image:
+            user.profile.banner = os.path.join(banner_dir, random_image)
+            user.profile.save()
+
+
+def set_user_data():
+    m = ManageImages(100)
+    m.all_images()
+
+    create_users()
+    create_posts()
+    create_replies()
+    create_reposts()
+    create_likes()
+    create_followers()
+    randomize_timestamps()
+    set_images()
+    set_banners()
