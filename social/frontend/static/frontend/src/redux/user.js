@@ -58,6 +58,11 @@ export const {
 export default reducer;
 
 //
+// Actions
+//
+const logout = () => ({ type: `${NAMESPACE}/logout` });
+
+//
 // Selectors
 //
 export const selectFollowing = (state, userId) => (
@@ -179,7 +184,7 @@ export const logoutUser = () => async (dispatch) => {
   try {
     dispatch(setLoading(NAMESPACE, thisKey));
     await api(descriptor.logoutUser);
-    dispatch(setUser({}));
+    dispatch(logout());
   } catch (error) {
     dispatch(setToast('Something went wrong', 'error'));
     console.error(error);

@@ -9,7 +9,7 @@ import searchSlice from './search';
 import uiReducer from './ui';
 import userSlice from './user';
 
-const reducer = combineReducers({
+const combinedReducers = combineReducers({
   notifications: notificationsSlice,
   post: postSlice,
   profile: profileSlice,
@@ -19,13 +19,21 @@ const reducer = combineReducers({
   user: userSlice,
 });
 
+const rootReducer = (state, action) => {
+  if (action.type === 'user/logout') {
+    // eslint-disable-next-line no-param-reassign
+    state = {};
+  }
+  return combinedReducers(state, action);
+};
+
 const customizedMiddleware = getDefaultMiddleware({
   immutableCheck: false,
   serializableCheck: false,
 });
 
 const store = configureStore({
-  reducer,
+  reducer: rootReducer,
   middleware: customizedMiddleware,
 });
 
