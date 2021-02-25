@@ -17,6 +17,7 @@ class User(SoftDeleteMixin, TimestampMixin, AbstractBaseUser):
         max_length=255,
         unique=True,
     )
+    fake_account = models.BooleanField(default=False)
     following = models.ManyToManyField(
         'self',
         related_name='followers',
