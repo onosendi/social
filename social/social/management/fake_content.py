@@ -121,6 +121,7 @@ def create_users(count: int = 100) -> None:
                         username=username,
                         email=email,
                         password=password,
+                        fake_account=True,
                     )
                     profile_data = {
                         'bio': faker.company(),
