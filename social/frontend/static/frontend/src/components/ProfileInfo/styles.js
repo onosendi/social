@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
         ? `url('${profileUser.profile.image}')`
         : 'none'
     ),
+    backgroundPosition: 'center center',
     backgroundSize: 'cover',
     borderColor: theme.palette.common.white,
     borderRadius: '50%',
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
         ? `url(${profileUser.profile.banner})`
         : 'none'
     ),
+    backgroundPosition: 'center center',
     backgroundSize: 'cover',
     height: 200,
     position: 'relative',
