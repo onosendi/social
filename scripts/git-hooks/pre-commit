@@ -8,6 +8,10 @@ exec 1>&2
 
 EXIT=0
 
+echo "Formatting code..."
+black ${APP_NAME}/
+[[ $? != 0 ]] && EXIT=1
+
 echo "Sorting imports..."
 isort ${APP_NAME}/
 [[ $? != 0 ]] && EXIT=1
