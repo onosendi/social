@@ -24,7 +24,7 @@ Twitter-esque social networking site.
     git clone https://github.com/onosendi/social.git
 
 ### Environment File
-Create an `.env` file in the root directory (next to `requirements.txt`) with the following content:
+Create an `.env` file in the root directory (next to `package.json`) with the following content:
 
     SECRET_KEY='super secret key'
     ALLOWED_HOSTS='localhost;*'
