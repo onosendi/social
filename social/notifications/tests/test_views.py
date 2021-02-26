@@ -1,3 +1,5 @@
+import pytest
+
 from rest_framework import status
 from rest_framework.test import APITestCase
 
@@ -5,6 +7,51 @@ from django.shortcuts import reverse
 
 from posts.models import Post
 from social.testing import create_user
+
+
+@pytest.fixture
+def create_notification(api_client, auth_user):
+    url = reverse("posts:post")
+
+    data = {
+        "body": "testing",
+        "is_reply": False,
+    }
+    api_client.post(url, data)
+
+    p = Post.objects.get(body="testing")
+    data = {
+        "body": "testing",
+        "is_reply": True,
+        "parent_id": p.id,
+    }
+    api_client.post(url, data)
+
+
+@pytest.mark.parametrize(
+    "view_name",
+    [
+        "notifications:unread_count",
+        "notifications:notifications",
+    ],
+)
+def test_unauthorized_status_code(api_client, view_name):
+    url = reverse(view_name)
+    response = api_client.get(url)
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+
+
+@pytest.mark.parametrize(
+    "view_name",
+    [
+        "notifications:unread_count",
+        "notifications:notifications",
+    ],
+)
+def test_authorized_status_code(api_client, auth_user, view_name):
+    url = reverse(view_name)
+    response = api_client.get(url)
+    assert response.status_code == status.HTTP_200_OK
 
 
 class NotificationMixin:
@@ -39,10 +86,6 @@ class NotificationMixin:
 class UnreadNotificationCountViewTestCase(NotificationMixin, APITestCase):
     url = reverse("notifications:unread_count")
 
-    def test_unauthorized_status_code(self):
-        response = self.client.get(self.url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-
     def test_unread_notification_count(self):
         self.create_notification()
 
@@ -58,10 +101,6 @@ class UnreadNotificationCountViewTestCase(NotificationMixin, APITestCase):
 class NoticationsViewTestCase(NotificationMixin, APITestCase):
     url = reverse("notifications:notifications")
 
-    def test_unauthorized_status_code(self):
-        response = self.client.get(self.url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-
     def test_notifications(self):
         self.create_notification()
         response = self.client.get(self.url)
@@ -76,11 +115,6 @@ class NoticationsViewTestCase(NotificationMixin, APITestCase):
 
 class RemoveNotificationTestCase(NotificationMixin, APITestCase):
     endpoint = "notifications:remove_notification"
-
-    def test_unauthorized_status_code(self):
-        url = reverse(self.endpoint, kwargs={"pk": 0})
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_remove_notification(self):
         self.create_notification()

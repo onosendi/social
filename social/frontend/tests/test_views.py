@@ -1,21 +1,16 @@
-import simplejson as json
+from rest_framework import status
 
-from django.test import TestCase
-
-from social.testing import create_user
+from django.urls import reverse
 
 
-class AppViewTestCase(TestCase):
-    def test_app_view(self):
-        user, password = create_user()
-        self.client.force_login(user)
-        response = self.client.get("/")
+def test_app_status_code(api_client):
+    url = reverse("frontend:app")
+    response = api_client.get(url)
+    assert response.status_code == status.HTTP_200_OK
 
-        # Test status code.
-        self.assertEqual(response.status_code, 200)
 
-        # Make sure `context.user_data` is set.
-        user_data_username = json.loads(response.context.get("user_data")).get(
-            "username"
-        )
-        self.assertEqual(user_data_username, user.username)
+def test_app_auth_user_has_context_data(api_client, auth_user):
+    url = reverse("frontend:app")
+    response = api_client.get(url)
+    user_context_data = response.context.get("user_data")
+    assert auth_user.email in user_context_data

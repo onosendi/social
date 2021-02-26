@@ -18,4 +18,4 @@ shell:
 
 .PHONY: test
 test:
-	@${APP_NAME}/manage.py test
+	@pytest ${APP_NAME}/

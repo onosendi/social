@@ -1,0 +1,16 @@
+[run]
+source = social/
+omit =
+   *manage.py
+   */settings/base.py
+   */settings/development.py
+   */settings/production.py
+   */test_*
+   */common/*
+   *migrations/*
+   *asgi.py
+   *wsgi.py
+   *urls.py
+
+   *__init__*
+   */__pycache__/*

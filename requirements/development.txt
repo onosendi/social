@@ -4,3 +4,8 @@ black
 flake8
 ipython
 isort
+mixer
+pytest
+pytest-cov
+pytest-django
+pytest-xdist
