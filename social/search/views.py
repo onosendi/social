@@ -1,14 +1,10 @@
-from django.contrib.auth import get_user_model
-
-from rest_framework import (
-    filters,
-    generics as rest_generics,
-)
+from rest_framework import filters, generics as rest_generics
 from rest_framework.permissions import IsAuthenticated
+
+from django.contrib.auth import get_user_model
 
 from search.pagination import SearchPagination
 from users.serializers import UserSerializer
-
 
 User = get_user_model()
 

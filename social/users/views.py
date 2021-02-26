@@ -1,20 +1,19 @@
-from django.contrib.auth import authenticate, get_user_model, login, logout
-from django.shortcuts import get_object_or_404
-
 from rest_framework import (
     generics as rest_generics,
-    views as rest_views,
     status,
+    views as rest_views,
 )
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from social.views import PaginationMixin
+from django.contrib.auth import authenticate, get_user_model, login, logout
+from django.shortcuts import get_object_or_404
+
 from notifications.models import Notification
+from social.views import PaginationMixin
 from .pagination import UserPagination
 from .serializers import PasswordSerializer, ProfileSerializer, UserSerializer
-
 
 User = get_user_model()
 

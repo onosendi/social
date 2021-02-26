@@ -1,6 +1,3 @@
-from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
-
 from rest_framework import (
     generics as rest_generics,
     status,
@@ -9,19 +6,21 @@ from rest_framework import (
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
+
+from notifications.models import Notification
 from social.permissions import IsOwnerOrReadOnly
 from social.views import PaginationMixin
-from notifications.models import Notification
-from .pagination import PostPagination, ProfileLikesPagination, ReplyPagination
+from users.serializers import UserSerializer
 from .models import Post
+from .pagination import PostPagination, ProfileLikesPagination, ReplyPagination
 from .serializers import (
     PostDetailSerializer,
     PostSerializer,
-    RepostSerializer,
     ReplySerializer,
+    RepostSerializer,
 )
-from users.serializers import UserSerializer
-
 
 User = get_user_model()
 

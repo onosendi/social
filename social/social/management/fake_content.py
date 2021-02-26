@@ -1,8 +1,8 @@
 import datetime
 import os
 import pathlib
-from random import randint, randrange
 import shutil
+from random import randint, randrange
 from typing import Any, List
 
 from faker import Faker

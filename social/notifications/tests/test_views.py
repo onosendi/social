@@ -1,7 +1,7 @@
-from django.shortcuts import reverse
-
 from rest_framework import status
 from rest_framework.test import APITestCase
+
+from django.shortcuts import reverse
 
 from posts.models import Post
 from social.testing import create_user
