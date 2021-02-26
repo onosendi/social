@@ -23,7 +23,7 @@ class BadPKMixin:
 
     def test_pk_does_not_exist(self):
         self.authenticate()
-        url = reverse(self.endpoint, kwargs={'pk': 0})
+        url = reverse(self.endpoint, kwargs={"pk": 0})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
@@ -33,13 +33,13 @@ class BadSlugMixin:
 
     def test_slug_does_not_exist(self):
         self.authenticate()
-        url = reverse(self.endpoint, kwargs={'slug': 'bad-slug'})
+        url = reverse(self.endpoint, kwargs={"slug": "bad-slug"})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 
 class FeedViewTestCase(Mixin, APITestCase):
-    url = reverse('posts:feed')
+    url = reverse("posts:feed")
 
     def test_unauthorized_status_code(self):
         response = self.client.get(self.url)
@@ -58,18 +58,18 @@ class FeedViewTestCase(Mixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # Make sure the response data is paginated.
-        self.assertIsInstance(response.data.get('results'), list)
+        self.assertIsInstance(response.data.get("results"), list)
 
         # Make sure the correct results are returned.
-        results_count = len(response.data.get('results'))
+        results_count = len(response.data.get("results"))
         self.assertEqual(results_count, 2)
 
 
 class ProfilePostsViewTestCase(Mixin, BadSlugMixin, APITestCase):
-    endpoint = 'posts:profile_posts'
+    endpoint = "posts:profile_posts"
 
     def test_unauthorized_status_code(self):
-        url = reverse(self.endpoint, kwargs={'slug': self.user1.slug})
+        url = reverse(self.endpoint, kwargs={"slug": self.user1.slug})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
@@ -77,38 +77,38 @@ class ProfilePostsViewTestCase(Mixin, BadSlugMixin, APITestCase):
         self.authenticate()
         create_post(self.user1)
         create_post(self.user2)
-        url = reverse(self.endpoint, kwargs={'slug': self.user1.slug})
+        url = reverse(self.endpoint, kwargs={"slug": self.user1.slug})
         response = self.client.get(url)
 
         # Test status code.
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # Make sure the respnose data is paginated.
-        self.assertIsInstance(response.data.get('results'), list)
+        self.assertIsInstance(response.data.get("results"), list)
 
         # Make sure the correct results are returned.
-        results_count = len(response.data.get('results'))
+        results_count = len(response.data.get("results"))
         self.assertEqual(results_count, 1)
 
 
 class ProfileLikesViewTestCase(Mixin, BadSlugMixin, APITestCase):
-    endpoint = 'posts:profile_likes'
+    endpoint = "posts:profile_likes"
 
     def test_unauthorized_status_code(self):
-        url = reverse(self.endpoint, kwargs={'slug': self.user1.slug})
+        url = reverse(self.endpoint, kwargs={"slug": self.user1.slug})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_profile_likes(self):
         self.authenticate()
-        url = reverse(self.endpoint, kwargs={'slug': self.user1.slug})
+        url = reverse(self.endpoint, kwargs={"slug": self.user1.slug})
         response = self.client.get(url)
 
         # Test status code.
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # Make sure the respnose data is paginated.
-        self.assertIsInstance(response.data.get('results'), list)
+        self.assertIsInstance(response.data.get("results"), list)
 
         # Make sure the correct results are returned.
         p = create_post(self.user1)
@@ -118,7 +118,7 @@ class ProfileLikesViewTestCase(Mixin, BadSlugMixin, APITestCase):
 
 
 class PostViewTestCase(Mixin, APITestCase):
-    url = reverse('posts:post')
+    url = reverse("posts:post")
 
     def test_unauthorized_status_code(self):
         response = self.client.post(self.url)
@@ -127,8 +127,8 @@ class PostViewTestCase(Mixin, APITestCase):
     def test_create_post(self):
         self.authenticate()
         data = {
-            'body': 'testing',
-            'is_reply': False,
+            "body": "testing",
+            "is_reply": False,
         }
         response = self.client.post(self.url, data)
 
@@ -136,18 +136,16 @@ class PostViewTestCase(Mixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         # Make sure the post was created.
-        post_count = self.user1.posts\
-            .filter(Q(parent_id=None), is_reply=False)\
-            .count()
+        post_count = self.user1.posts.filter(Q(parent_id=None), is_reply=False).count()
         self.assertEqual(post_count, 1)
 
     def test_create_reply(self):
         self.authenticate()
         p = create_post(self.user2)
         data = {
-            'body': 'testing',
-            'is_reply': True,
-            'parent_id': p.id,
+            "body": "testing",
+            "is_reply": True,
+            "parent_id": p.id,
         }
         response = self.client.post(self.url, data)
 
@@ -155,9 +153,7 @@ class PostViewTestCase(Mixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         # Make sure the reply was created.
-        post_count = self.user1.posts\
-            .filter(~Q(parent_id=None), is_reply=True)\
-            .count()
+        post_count = self.user1.posts.filter(~Q(parent_id=None), is_reply=True).count()
         self.assertEqual(post_count, 1)
 
         # Make sure user2 gets notified of a repost.
@@ -166,7 +162,7 @@ class PostViewTestCase(Mixin, APITestCase):
 
 
 class RepostViewTestCase(Mixin, APITestCase):
-    url = reverse('posts:repost')
+    url = reverse("posts:repost")
 
     def test_unauthorized_status_code(self):
         response = self.client.post(self.url)
@@ -176,9 +172,9 @@ class RepostViewTestCase(Mixin, APITestCase):
         self.authenticate()
         p = create_post(self.user2)
         data = {
-            'body': 'testing',
-            'is_reply': False,
-            'parent_id': p.id,
+            "body": "testing",
+            "is_reply": False,
+            "parent_id": p.id,
         }
         response = self.client.post(self.url, data)
 
@@ -186,9 +182,7 @@ class RepostViewTestCase(Mixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         # Make sure the repost was created.
-        repost_count = p.alt\
-            .filter(~Q(parent_id=None), is_reply=False)\
-            .count()
+        repost_count = p.alt.filter(~Q(parent_id=None), is_reply=False).count()
         self.assertEqual(repost_count, 1)
 
         # Make sure user2 gets notified of a repost.
@@ -197,17 +191,17 @@ class RepostViewTestCase(Mixin, APITestCase):
 
 
 class PostDetailViewTestCase(Mixin, BadPKMixin, APITestCase):
-    endpoint = 'posts:post_detail'
+    endpoint = "posts:post_detail"
 
     def test_unauthorized_status_code(self):
-        url = reverse(self.endpoint, kwargs={'pk': 1})
+        url = reverse(self.endpoint, kwargs={"pk": 1})
         response = self.client.post(url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_get_post_detail(self):
         self.authenticate()
         p = create_post(self.user1)
-        url = reverse(self.endpoint, kwargs={'pk': p.pk})
+        url = reverse(self.endpoint, kwargs={"pk": p.pk})
         response = self.client.get(url)
 
         # Test status code.
@@ -216,10 +210,8 @@ class PostDetailViewTestCase(Mixin, BadPKMixin, APITestCase):
     def test_must_be_owner(self):
         self.authenticate()
         p = create_post(self.user2)
-        url = reverse(self.endpoint, kwargs={'pk': p.pk})
-        data = {
-            'body': 'testing'
-        }
+        url = reverse(self.endpoint, kwargs={"pk": p.pk})
+        data = {"body": "testing"}
         response = self.client.patch(url, data)
 
         # Test status code.
@@ -228,10 +220,10 @@ class PostDetailViewTestCase(Mixin, BadPKMixin, APITestCase):
     def test_update_post_detail(self):
         self.authenticate()
         p = create_post(self.user1)
-        url = reverse(self.endpoint, kwargs={'pk': p.pk})
-        new_body = 'testing'
+        url = reverse(self.endpoint, kwargs={"pk": p.pk})
+        new_body = "testing"
         data = {
-            'body': new_body,
+            "body": new_body,
         }
         response = self.client.patch(url, data)
 
@@ -245,7 +237,7 @@ class PostDetailViewTestCase(Mixin, BadPKMixin, APITestCase):
     def test_delete_post_detail(self):
         self.authenticate()
         p = create_post(self.user1)
-        url = reverse(self.endpoint, kwargs={'pk': p.pk})
+        url = reverse(self.endpoint, kwargs={"pk": p.pk})
         response = self.client.delete(url)
 
         # Test status code.
@@ -257,10 +249,10 @@ class PostDetailViewTestCase(Mixin, BadPKMixin, APITestCase):
 
 
 class LikesViewTestCase(Mixin, BadPKMixin, APITestCase):
-    endpoint = 'posts:likes'
+    endpoint = "posts:likes"
 
     def test_unauthorized_status_code(self):
-        url = reverse(self.endpoint, kwargs={'pk': 1})
+        url = reverse(self.endpoint, kwargs={"pk": 1})
         response = self.client.post(url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
@@ -268,14 +260,14 @@ class LikesViewTestCase(Mixin, BadPKMixin, APITestCase):
         self.authenticate()
         p = create_post(self.user1)
         p.liked.add(self.user1)
-        url = reverse(self.endpoint, kwargs={'pk': p.pk})
+        url = reverse(self.endpoint, kwargs={"pk": p.pk})
         response = self.client.get(url)
 
         # Test status code.
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # Make sure the response data is paginated.
-        self.assertIsInstance(response.data.get('results'), list)
+        self.assertIsInstance(response.data.get("results"), list)
 
         # Make sure the results are correct.
         likes_count = p.liked.count()
@@ -284,7 +276,7 @@ class LikesViewTestCase(Mixin, BadPKMixin, APITestCase):
     def test_add_like(self):
         self.authenticate()
         p = create_post(self.user1)
-        url = reverse(self.endpoint, kwargs={'pk': p.pk})
+        url = reverse(self.endpoint, kwargs={"pk": p.pk})
         response = self.client.post(url)
 
         # Test status code.
@@ -297,7 +289,7 @@ class LikesViewTestCase(Mixin, BadPKMixin, APITestCase):
     def test_delete_like(self):
         self.authenticate()
         p = create_post(self.user1)
-        url = reverse(self.endpoint, kwargs={'pk': p.pk})
+        url = reverse(self.endpoint, kwargs={"pk": p.pk})
         response = self.client.delete(url)
 
         # Test status code.
@@ -309,7 +301,7 @@ class LikesViewTestCase(Mixin, BadPKMixin, APITestCase):
 
 
 class RecommendPostsViewTestCase(Mixin, APITestCase):
-    url = reverse('posts:recommended_posts')
+    url = reverse("posts:recommended_posts")
 
     def test_unauthorized_status_code(self):
         response = self.client.post(self.url)
@@ -324,14 +316,12 @@ class RecommendPostsViewTestCase(Mixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # Make sure the correct results are returned.
-        recommended_post_username = response.data[0]\
-            .get('author')\
-            .get('username')
+        recommended_post_username = response.data[0].get("author").get("username")
         self.assertEqual(recommended_post_username, self.user2.username)
 
 
 class LongRecommendedPostsViewTestCase(Mixin, APITestCase):
-    url = reverse('posts:long_recommended_posts')
+    url = reverse("posts:long_recommended_posts")
 
     def test_unauthorized_status_code(self):
         response = self.client.get(self.url)
@@ -346,21 +336,20 @@ class LongRecommendedPostsViewTestCase(Mixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # Make sure the response data is paginated.
-        self.assertIsInstance(response.data.get('results'), list)
+        self.assertIsInstance(response.data.get("results"), list)
 
         # Make sure the correct results are returned.
-        recommended_post_username = response.data\
-            .get('results')[0]\
-            .get('author')\
-            .get('username')
+        recommended_post_username = (
+            response.data.get("results")[0].get("author").get("username")
+        )
         self.assertEqual(recommended_post_username, self.user2.username)
 
 
 class PostRepliesTestCase(Mixin, BadPKMixin, APITestCase):
-    endpoint = 'posts:replies'
+    endpoint = "posts:replies"
 
     def test_unauthorized_status_code(self):
-        url = reverse(self.endpoint, kwargs={'pk': 1})
+        url = reverse(self.endpoint, kwargs={"pk": 1})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
@@ -368,14 +357,14 @@ class PostRepliesTestCase(Mixin, BadPKMixin, APITestCase):
         self.authenticate()
         p = create_post(self.user1)
         create_post(self.user1, is_reply=True, parent=p)
-        url = reverse(self.endpoint, kwargs={'pk': p.pk})
+        url = reverse(self.endpoint, kwargs={"pk": p.pk})
         response = self.client.get(url)
 
         # Test status code.
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # Make sure the response data is paginated.
-        self.assertIsInstance(response.data.get('results'), list)
+        self.assertIsInstance(response.data.get("results"), list)
 
         # Make sure the correct results are returned.
         reply_count = p.get_replies().count()

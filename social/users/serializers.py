@@ -7,22 +7,24 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = [
-            'banner',
-            'bio',
-            'image',
-            'location',
-            'website',
+            "banner",
+            "bio",
+            "image",
+            "location",
+            "website",
         ]
 
 
 class ValidatePasswordMixin:
     def validate(self, data):
-        password = data.get('password')
-        password2 = data.get('password2')
+        password = data.get("password")
+        password2 = data.get("password2")
         if password and password2 and password != password2:
-            raise serializers.ValidationError({
-                'password2': 'Passwords do not match.',
-            })
+            raise serializers.ValidationError(
+                {
+                    "password2": "Passwords do not match.",
+                }
+            )
         return data
 
 
@@ -38,22 +40,22 @@ class UserSerializer(ValidatePasswordMixin, serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'created_at',
-            'display_name',
-            'email',
-            'followers',
-            'following',
-            'id',
-            'name',
-            'password',
-            'password2',
-            'profile',
-            'slug',
-            'username',
+            "created_at",
+            "display_name",
+            "email",
+            "followers",
+            "following",
+            "id",
+            "name",
+            "password",
+            "password2",
+            "profile",
+            "slug",
+            "username",
         ]
 
     def create(self, validated_data):
-        del validated_data['password2']
+        del validated_data["password2"]
         return User.objects.create_user(**validated_data)
 
     def get_display_name(self, obj):
@@ -68,14 +70,14 @@ class PasswordSerializer(ValidatePasswordMixin, serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'current_password',
-            'password',
-            'password2',
+            "current_password",
+            "password",
+            "password2",
         ]
 
     def validate_current_password(self, data):
-        request = self.context.get('request')
+        request = self.context.get("request")
         r_user = request.user
         if not r_user.check_password(data):
-            raise serializers.ValidationError('Incorrect password.')
+            raise serializers.ValidationError("Incorrect password.")
         return data

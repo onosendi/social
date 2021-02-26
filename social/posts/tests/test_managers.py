@@ -12,7 +12,7 @@ class PostManagerTestCase(TestCase):
         cls.user3, _ = create_user()
 
     def test_active(self):
-        ''' Posts are soft deleted, so only get active posts. '''
+        """ Posts are soft deleted, so only get active posts. """
         create_post(self.user1)
         p2 = create_post(self.user1)
         p2.is_active = False
@@ -21,9 +21,9 @@ class PostManagerTestCase(TestCase):
         self.assertEqual(active_posts.count(), 1)
 
     def test_feed(self):
-        ''' Feed consists of a user's posts, and posts that user is following.
+        """Feed consists of a user's posts, and posts that user is following.
         Here user1, user2, and user3 create a post. user1 follows user2,
-        therefore the feed should only consist of 2 posts. '''
+        therefore the feed should only consist of 2 posts."""
         create_post(self.user1)
         create_post(self.user2)
         create_post(self.user3)
@@ -80,7 +80,7 @@ class PostManagerTestCase(TestCase):
         recommend_post_count = Post.objects.recommend_posts(self.user1).count()
         self.assertEqual(recommend_post_count, 5)
 
-        recommend_post_count = Post.objects\
-            .recommend_posts(self.user1, long=True)\
-            .count()
+        recommend_post_count = Post.objects.recommend_posts(
+            self.user1, long=True
+        ).count()
         self.assertEqual(recommend_post_count, 11)

@@ -9,8 +9,8 @@ class PostModelTestCase(TestCase):
         cls.user1, _ = create_user()
 
     def test_string_representation(self):
-        p = create_post(self.user1, body='testing')
-        self.assertEqual(str(p), 'testing')
+        p = create_post(self.user1, body="testing")
+        self.assertEqual(str(p), "testing")
 
     def test_get_replies(self):
         p = create_post(self.user1)
