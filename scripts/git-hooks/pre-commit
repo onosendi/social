@@ -2,16 +2,22 @@
 # Create a link to this file at .git/hooks/pre-commit to
 # force PEP8 validation prior to committing
 
+APP_NAME=social
+
 exec 1>&2
 
 EXIT=0
 
+echo "Sorting imports..."
+isort ${APP_NAME}/
+[[ $? != 0 ]] && EXIT=1
+
 echo "Validating PEP8 compliance..."
-flake8 social/
+flake8 ${APP_NAME}/
 [[ $? != 0 ]] && EXIT=1
 
 echo "Checking for missing migrations..."
-python social/manage.py makemigrations --dry-run --check
+python ${APP_NAME}/manage.py makemigrations --dry-run --check
 [[ $? != 0 ]] && EXIT=1
 
 [[ $EXIT != 0 ]] && printf "COMMIT FAILED\n"
