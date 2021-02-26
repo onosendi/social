@@ -1,8 +1,6 @@
 -r base.txt
 
 black
-django-extensions
-django-debug-toolbar
 flake8
 ipython
 isort
