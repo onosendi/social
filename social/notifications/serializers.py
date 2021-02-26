@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
-from .models import Notification
 from posts.serializers import PostSerializer
 from users.serializers import UserSerializer
+from .models import Notification
 
 
 class NotificationSerializer(serializers.ModelSerializer):

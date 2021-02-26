@@ -1,8 +1,8 @@
-from django.db.models import Q
-from django.shortcuts import reverse
-
 from rest_framework import status
 from rest_framework.test import APITestCase
+
+from django.db.models import Q
+from django.shortcuts import reverse
 
 from social.testing import create_post, create_user
 

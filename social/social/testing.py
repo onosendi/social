@@ -7,7 +7,6 @@ from django.db import IntegrityError, transaction
 
 from posts.models import Post
 
-
 faker = Faker()
 User = get_user_model()
 

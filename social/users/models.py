@@ -1,9 +1,6 @@
-from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
-from django.contrib.postgres.fields.citext import (
-    CICharField,
-    CIEmailField,
-)
+from django.contrib.postgres.fields.citext import CICharField, CIEmailField
+from django.db import models
 from django.utils.text import slugify
 from django.utils.timezone import now
 

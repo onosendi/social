@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.postgres.aggregates import ArrayAgg
 from django.db.models import Q, QuerySet
 
-
 User = get_user_model()
 
 
