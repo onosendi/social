@@ -15,12 +15,12 @@ class UsernameOrEmailAuth(ModelBackend):
         password: Union[str, None] = None,
         **kwargs,
     ) -> Union[User, None]:
-        ''' Override default authentication to allow for both email and
+        """Override default authentication to allow for both email and
         username login.
 
         :param login: Username or email address.
         :param password: Password.
-        '''
+        """
         if login is None:
             login = kwargs.get(User.USERNAME_FIELD)
         if login is None or password is None:
@@ -30,8 +30,7 @@ class UsernameOrEmailAuth(ModelBackend):
         )
         if user:
             user = user[0]
-            if (user.check_password(password)
-                    and self.user_can_authenticate(user)):
+            if user.check_password(password) and self.user_can_authenticate(user):
                 return user
         else:
             # Run the default password hasher once to reduce the timing

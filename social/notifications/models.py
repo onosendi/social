@@ -15,24 +15,24 @@ class Notification(SoftDeleteMixin, TimestampMixin):
         db_index=True,
     )
     from_user = models.ForeignKey(
-        'users.User',
+        "users.User",
         on_delete=models.CASCADE,
-        related_name='notification_from_user',
+        related_name="notification_from_user",
     )
     is_read = models.BooleanField(default=False)
     post = models.ForeignKey(
-        'posts.Post',
+        "posts.Post",
         blank=True,
         null=True,
         on_delete=models.CASCADE,
-        related_name='notification_post',
+        related_name="notification_post",
     )
     to_user = models.ForeignKey(
-        'users.User',
+        "users.User",
         on_delete=models.CASCADE,
-        related_name='notifications',
+        related_name="notifications",
     )
     type = models.PositiveIntegerField(choices=NotificationTypes.choices)
 
     def __str__(self):
-        return f'{self.from_user} => {self.to_user}: {self.type}'
+        return f"{self.from_user} => {self.to_user}: {self.type}"
