@@ -12,7 +12,7 @@ class PostManagerTestCase(TestCase):
         cls.user3, _ = create_user()
 
     def test_active(self):
-        """ Posts are soft deleted, so only get active posts. """
+        """Posts are soft deleted, so only get active posts."""
         create_post(self.user1)
         p2 = create_post(self.user1)
         p2.is_active = False

@@ -14,22 +14,22 @@ class AuthenticateTestCase(TestCase):
         )
 
     def test_authenticate_with_no_credentials(self):
-        """ Check that `None` is returned if no credentials are provided. """
+        """Check that `None` is returned if no credentials are provided."""
         a = authenticate()
         self.assertIsNone(a)
 
     def test_authenticate_with_bad_credentials(self):
-        """ Check that `None` is returned if bad credentials are provided. """
+        """Check that `None` is returned if bad credentials are provided."""
         a = authenticate(login="bad-username", password="bad-password")
         self.assertIsNone(a)
 
     def test_authenticate_with_email(self):
-        """ Check that user can authenticate with their email address. """
+        """Check that user can authenticate with their email address."""
         a = authenticate(login="jim@testing.com", password="testing")
         self.assertIsNotNone(a)
 
     def test_authenticate_with_username(self):
-        """ Check that user can authenticate with their username. """
+        """Check that user can authenticate with their username."""
         a = authenticate(login="jim", password="testing")
         self.assertIsNotNone(a)
 

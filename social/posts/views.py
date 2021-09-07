@@ -22,7 +22,7 @@ User = get_user_model()
 
 
 class FeedAPIView(rest_generics.ListAPIView):
-    """ Get the user's posts, and the posts of the users they're following. """
+    """Get the user's posts, and the posts of the users they're following."""
 
     pagination_class = PostPagination
     permission_classes = [IsAuthenticated]
@@ -37,7 +37,7 @@ class LikesAPIView(rest_views.APIView, PaginationMixin):
     permission_classes = [IsAuthenticated]
 
     def delete(self, request, pk: int):
-        """ Remove user from post's likes. """
+        """Remove user from post's likes."""
         post = self.get_object(pk)
         r_user = request.user
         post.liked.remove(r_user)
@@ -50,7 +50,7 @@ class LikesAPIView(rest_views.APIView, PaginationMixin):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def get(self, request, pk):
-        """ Get all users from post's likes. """
+        """Get all users from post's likes."""
         post = self.get_object(pk)
         users = post.liked.all()
         paginated = self.paginator.paginate_queryset(users, self.request)
@@ -61,7 +61,7 @@ class LikesAPIView(rest_views.APIView, PaginationMixin):
         return get_object_or_404(Post, pk=pk, is_active=True)
 
     def post(self, request, pk):
-        """ Add user to post's likes. """
+        """Add user to post's likes."""
         post = self.get_object(pk)
         r_user = request.user
         if r_user not in post.liked.all():
@@ -125,7 +125,7 @@ class PostDetailAPIView(rest_generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PostDetailSerializer
 
     def delete(self, request, pk):
-        """ Remove post. """
+        """Remove post."""
         r_user = self.request.user
         post = get_object_or_404(Post, author=r_user, pk=pk, is_active=True)
         post.is_active = False
@@ -137,7 +137,7 @@ class PostDetailAPIView(rest_generics.RetrieveUpdateDestroyAPIView):
 
 
 class PostRepliesAPIView(rest_generics.ListAPIView):
-    """ Get paginated replies for a post. """
+    """Get paginated replies for a post."""
 
     pagination_class = ReplyPagination
     permission_classes = [IsAuthenticated]
@@ -150,7 +150,7 @@ class PostRepliesAPIView(rest_generics.ListAPIView):
 
 
 class ProfileLikesAPIView(rest_generics.ListAPIView):
-    """ Get paginated posts the user has liked. """
+    """Get paginated posts the user has liked."""
 
     pagination_class = ProfileLikesPagination
     permission_classes = [IsAuthenticated]
@@ -163,7 +163,7 @@ class ProfileLikesAPIView(rest_generics.ListAPIView):
 
 
 class ProfilePostsAPIView(rest_generics.ListAPIView):
-    """ Get the user's posts only. """
+    """Get the user's posts only."""
 
     pagination_class = PostPagination
     permission_classes = [IsAuthenticated]

@@ -55,9 +55,9 @@ class Post(SoftDeleteMixin, TimestampMixin):
         return f"{self.body[:100]}{ellipsis}"
 
     def get_replies(self):
-        """ Get a post's replies. """
+        """Get a post's replies."""
         return self.alt.filter(is_active=True, is_reply=True).order_by("created_at")
 
     def get_reposts(self):
-        """ Get a post's reposts. """
+        """Get a post's reposts."""
         return self.alt.filter(is_active=True, is_reply=False).order_by("created_at")

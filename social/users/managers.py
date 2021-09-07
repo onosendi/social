@@ -58,16 +58,16 @@ class UserManager(UM):
         return user
 
     def active(self):
-        """ See :class:`UserQuerySet` :meth:`active`. """
+        """See :class:`UserQuerySet` :meth:`active`."""
         return self.get_queryset().active()
 
     def create_user(self, email, username, password=None, **extra_fields):
-        """ See :meth:`_create_user`. """
+        """See :meth:`_create_user`."""
         return self._create_user(username, email, password, **extra_fields)
 
     def get_queryset(self):
         return UserQuerySet(self.model, using=self._db)
 
     def recommend_users(self, user: object, long=False):
-        """ See :class:`UserQuerySet` :meth:`recommend_users`. """
+        """See :class:`UserQuerySet` :meth:`recommend_users`."""
         return self.get_queryset().recommend_users(user, long)
