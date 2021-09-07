@@ -4,12 +4,19 @@
 cd "$(dirname "$0")"
 
 # Set the virtual environment directory.
-VIRTUALENV="$(pwd -P)/venv"
+VIRTUALENV="$(pwd -P)/.venv"
 
 # Install NPM packages.
 COMMAND="npm install"
 echo ""
 echo "Installing NPM packages ($COMMAND)..."
+echo ""
+eval $COMMAND || exit 1
+
+# Update NPM packages.
+COMMAND="npm update"
+echo ""
+echo "Updating NPM packages ($COMMAND)..."
 echo ""
 eval $COMMAND || exit 1
 
@@ -30,7 +37,7 @@ if [ -d "$VIRTUALENV" ]; then
 fi
 
 # Create a new virtual environment
-COMMAND="/usr/bin/python3 -m venv ${VIRTUALENV}"
+COMMAND="poetry install"
 echo ""
 echo "Creating a new virtual environment at ${VIRTUALENV}..."
 echo ""
@@ -41,53 +48,29 @@ eval $COMMAND || {
   exit 1
 }
 
-# Activate the virtual environment
-source "${VIRTUALENV}/bin/activate"
-
-# Upgrade pip
-COMMAND="pip3 install --upgrade pip"
-echo ""
-echo "Upgrading pip ($COMMAND)..."
-echo ""
-eval $COMMAND || exit 1
-
-# Install necessary system packages
-COMMAND="pip3 install wheel"
-echo ""
-echo "Installing Python system packages ($COMMAND)..."
-echo ""
-eval $COMMAND || exit 1
-
-# Install required Python packages
-COMMAND="pip3 install -r requirements/production.txt"
-echo ""
-echo "Installing core dependencies ($COMMAND)..."
-echo ""
-eval $COMMAND || exit 1
-
 # Apply any database migrations
-COMMAND="python3 social/manage.py migrate"
+COMMAND="poetry run social/manage.py migrate"
 echo ""
 echo "Applying database migrations ($COMMAND)..."
 echo ""
 eval $COMMAND || exit 1
 
 # Collect static files
-COMMAND="python3 social/manage.py collectstatic --no-input"
+COMMAND="poetry run social/manage.py collectstatic --no-input"
 echo ""
 echo "Collecting static files ($COMMAND)..."
 echo ""
 eval $COMMAND || exit 1
 
 # Delete any stale content types
-COMMAND="python3 social/manage.py remove_stale_contenttypes --no-input"
+COMMAND="poetry run social/manage.py remove_stale_contenttypes --no-input"
 echo ""
 echo "Removing stale content types ($COMMAND)..."
 echo ""
 eval $COMMAND || exit 1
 
 # Delete any expired user sessions
-COMMAND="python3 social/manage.py clearsessions"
+COMMAND="poetry run social/manage.py clearsessions"
 echo ""
 echo "Removing expired user sessions ($COMMAND)..."
 echo ""
