@@ -15,7 +15,7 @@ User = get_user_model()
 
 
 class EditPasswordAPIView(rest_generics.UpdateAPIView):
-    """ Edit password. """
+    """Edit password."""
 
     permission_classes = [IsAuthenticated]
     serializer_class = PasswordSerializer
@@ -31,7 +31,7 @@ class EditPasswordAPIView(rest_generics.UpdateAPIView):
 
 
 class EditProfileAPIView(rest_generics.UpdateAPIView):
-    """ Edit profile: bio, location, website, etc. """
+    """Edit profile: bio, location, website, etc."""
 
     permission_classes = [IsAuthenticated]
     serializer_class = ProfileSerializer
@@ -41,7 +41,7 @@ class EditProfileAPIView(rest_generics.UpdateAPIView):
 
 
 class EditUserAPIView(rest_generics.UpdateAPIView):
-    """ Edit user: username, email, etc. """
+    """Edit user: username, email, etc."""
 
     permission_classes = [IsAuthenticated]
     serializer_class = UserSerializer
@@ -51,7 +51,7 @@ class EditUserAPIView(rest_generics.UpdateAPIView):
 
 
 class FollowersAPIView(rest_generics.ListAPIView):
-    """ Get paginated list of user's followers. """
+    """Get paginated list of user's followers."""
 
     pagination_class = UserPagination
     permission_classes = [IsAuthenticated]
@@ -70,7 +70,7 @@ class FollowingAPIView(rest_views.APIView, PaginationMixin):
         return get_object_or_404(User, is_active=True, slug=slug)
 
     def delete(self, request, slug):
-        """ Remove user from user's following. """
+        """Remove user from user's following."""
         user = self._get_object(slug)
         r_user = request.user
         r_user.unfollow(user)
@@ -83,7 +83,7 @@ class FollowingAPIView(rest_views.APIView, PaginationMixin):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def get(self, request, slug):
-        """ Get paginated list of users user is following. """
+        """Get paginated list of users user is following."""
         user = self._get_object(slug)
         following = user.get_following()
         paginated = self.paginator.paginate_queryset(following, self.request)
@@ -91,7 +91,7 @@ class FollowingAPIView(rest_views.APIView, PaginationMixin):
         return self.paginator.get_paginated_response(serializer.data)
 
     def post(self, request, slug):
-        """ Add user to user's following. """
+        """Add user to user's following."""
         user = self._get_object(slug)
         r_user = request.user
         r_user.follow(user)
@@ -170,7 +170,7 @@ def register_view(request):
 
 
 class UserDetailAPIView(rest_generics.RetrieveAPIView):
-    """ Get user details of the given user. """
+    """Get user details of the given user."""
 
     permission_classes = [IsAuthenticated]
     serializer_class = UserSerializer
