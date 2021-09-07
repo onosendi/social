@@ -37,7 +37,7 @@ if [ -d "$VIRTUALENV" ]; then
 fi
 
 # Create a new virtual environment
-COMMAND="poetry install"
+COMMAND="poetry install --no-dev"
 echo ""
 echo "Creating a new virtual environment at ${VIRTUALENV}..."
 echo ""

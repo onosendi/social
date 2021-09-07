@@ -21,7 +21,7 @@ description = ""
 authors = ["Daniel Lindegren <onosendi@dlindegren.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 Django = "3.1.8"
 django-extensions = "3.1.0"
 django-debug-toolbar = "3.2.1"
