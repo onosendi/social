@@ -54,21 +54,17 @@ In a PostgreSQL shell (`sudo -u postgres psql`), issue the following commands:
 *For development, use `npm start`*
 
 ### Python/Django
-#### Create virtual environment and install requirements
+#### Install requirements
 
-    python3 -m venv venv
-    source venv/bin/activate
-    pip3 install --upgrade pip
-    pip3 install wheel
-    pip3 install -r requirements/development.txt
+    poetry install
 
 #### Migrate Django's migrations to database
 
-    python3 social/manage.py migrate
+    poetry run social/manage.py migrate
 
 ### Finally
 #### Run Django's development server
 
-    python3 social/manage.py runserver
+    poetry run social/manage.py runserver
 
 Then in your browser, visit `localhost:8000` and register a new user.
