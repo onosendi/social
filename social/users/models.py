@@ -9,7 +9,7 @@ from .managers import UserManager
 
 
 class User(SoftDeleteMixin, TimestampMixin, AbstractBaseUser):
-    """ Custom user model. """
+    """Custom user model."""
 
     email = CIEmailField(
         max_length=255,
@@ -47,12 +47,12 @@ class User(SoftDeleteMixin, TimestampMixin, AbstractBaseUser):
         return self.name
 
     def follow(self, user: object) -> None:
-        """ Follow `user`. """
+        """Follow `user`."""
         if user != self:
             self.following.add(user)
 
     def get_followers(self):
-        """ Get users that are following user. """
+        """Get users that are following user."""
         return (
             self.followers.filter(is_active=True)
             .select_related("profile")
@@ -61,7 +61,7 @@ class User(SoftDeleteMixin, TimestampMixin, AbstractBaseUser):
         )
 
     def get_following(self):
-        """ Get users that user is following. """
+        """Get users that user is following."""
         return (
             self.following.filter(is_active=True)
             .select_related("profile")
@@ -80,7 +80,7 @@ class User(SoftDeleteMixin, TimestampMixin, AbstractBaseUser):
         super().save(*args, **kwargs)
 
     def unfollow(self, user: object) -> None:
-        """ Unfollow `user`. """
+        """Unfollow `user`."""
         self.following.remove(user)
 
 

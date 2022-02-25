@@ -1,0 +1,11 @@
+[Unit]
+Description=uWSGI instance to serve social.dlindegren.com
+After=network.target
+
+[Service]
+WorkingDirectory=/var/www/vhosts/social/htdocs/server-config
+Environment="PATH=/var/www/vhosts/social/htdocs/.venv/bin"
+ExecStart=/var/www/vhosts/social/htdocs/.venv/bin/uwsgi --ini uwsgi.ini
+
+[Install]
+WantedBy=multi-user.target
